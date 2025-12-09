@@ -1,0 +1,4 @@
+- [Configurar Ajustaments del CMS](configure_cms_settings.html)
+- [Etiquetes](configure_tags.html)
+- [Carpetes](configure_folders.html)
+- [Transicions](configure_transitions.html)

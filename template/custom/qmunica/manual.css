@@ -22,10 +22,30 @@ h6 {
 
 h1 {
   margin-top: 0;
-  font-size: 2.5rem;
+  font-size: 2.5em;
   border-bottom: 2px solid #cde2e6;
   padding-bottom: 15px;
   margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.75em;
+}
+
+h4 {
+  font-size: 1.5em;
+}
+
+h5 {
+  font-size: 1.25em;
+}
+
+h6 {
+  font-size: 1em;
 }
 
 a {
@@ -64,6 +84,19 @@ ul.navbar-nav li.active a {
   color: #fff !important;
   background-color: rgba(255, 255, 255, 0.1) !important;
   border-bottom: 3px solid #cde2e6;
+}
+
+/* Fix for Dropdown Links Visibility */
+ul.navbar-nav li.dropdown ul.dropdown-menu a {
+  color: #333 !important;
+  font-weight: normal;
+  padding: 10px 20px;
+}
+
+ul.navbar-nav li.dropdown ul.dropdown-menu a:hover {
+  background-color: #f8f9fa !important;
+  color: #273759 !important;
+  border-bottom: none;
 }
 
 /* Font Settings Dropdown */
@@ -183,61 +216,93 @@ input[type=range].font-range-slider:focus::-webkit-slider-runnable-track {
 
 /* FAQ Accordion Styling - Improved */
 details.faq-accordion {
-  background: #ffffff;
-  border: 1px solid #e1e4e8;
-  border-radius: 6px;
-  margin-bottom: 5px;
-  transition: all 0.2s ease;
-}
-
-details.faq-accordion[open] {
-  border-color: #cde2e6;
-  background-color: #fcfdfe;
+  background: transparent;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  /* Shadow is on summary/content separately or wrapper? */
 }
 
 details.faq-accordion summary {
-  cursor: pointer;
+  background: #fff;
+  padding: 15px 20px 15px 60px;
+  /* Space for icon */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   font-weight: 700;
-  /* Bolder text */
-  padding: 12px 15px 12px 35px;
-  /* Extra left padding for icon */
-  color: #273759;
-  list-style: none;
-  outline: none;
-  font-size: 1.05em;
+  cursor: pointer;
   position: relative;
-  /* For absolute positioning of icon */
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  list-style: none;
+  /* Hide default marker */
+  color: #273759;
+  font-size: 1.1em;
+}
+
+details.faq-accordion summary:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  border-color: #cde2e6;
+  z-index: 10;
+}
+
+details.faq-accordion summary:focus {
+  outline: none;
+  border-color: #cde2e6;
 }
 
 details.faq-accordion summary::-webkit-details-marker {
   display: none;
 }
 
-/* Icon on the Left */
+/* Icon on the Left - Chevron */
 details.faq-accordion summary::before {
-  content: '+';
-  color: #0088cc;
-  /* Distinct color for interactivity */
-  font-weight: 900;
-  font-size: 1.2em;
+  content: '';
   position: absolute;
-  left: 12px;
+  left: 20px;
   top: 50%;
-  transform: translateY(-55%);
-  transition: transform 0.2s;
+  transform: translateY(-50%) rotate(-45deg);
+  /* Arrow right */
+  width: 10px;
+  height: 10px;
+  border-right: 3px solid #0088cc;
+  border-bottom: 3px solid #0088cc;
+  transition: transform 0.2s ease;
+  margin-top: -2px;
+  /* Center adjustment */
 }
 
 details.faq-accordion[open] summary::before {
-  content: '-';
-  color: #273759;
+  transform: translateY(-50%) rotate(45deg);
+  /* Arrow down */
+  border-color: #273759;
 }
 
-details.faq-accordion p {
-  padding: 5px 15px 15px 35px;
-  /* Align text with summary title */
-  margin: 0;
+/* Open State Header */
+details.faq-accordion[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eaeaea;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  /* Restore normal shadow */
+  transform: none;
+  /* remove hover lift when open? or keep it? better remove to feel stable */
+}
+
+details.faq-accordion[open] summary:hover {
+  transform: none;
+}
+
+/* Content Body */
+details.faq-accordion .faq-content {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-top: none;
   color: #444;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 ul#side-nav {

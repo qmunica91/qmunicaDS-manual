@@ -1,0 +1,1 @@
+- [Resolució de Problemas](troubleshooting.html)

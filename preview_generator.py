@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 
 # Constants
 PRODUCT_NAME = "Qmunica DS"
@@ -130,9 +131,12 @@ def simple_markdown_to_html(md):
 import json
 
 def generate_navbar_real(lang, current_toc_name, current_file):
+    # Construct source path for this language
+    lang_source_dir = os.path.join("source", lang)
+    
     # Read nav_bar.json
     try:
-        with open(os.path.join(SOURCE_DIR, 'toc', 'nav_bar.json'), 'r') as f:
+        with open(os.path.join(lang_source_dir, 'toc', 'nav_bar.json'), 'r') as f:
             nav_data = json.load(f)
     except Exception as e:
         return f"<!-- Error loading navbar: {e} -->"
@@ -154,10 +158,8 @@ def generate_navbar_real(lang, current_toc_name, current_file):
         
         # If it is the active section, load the sidebar links from the referenced TOC MD file
         if is_active_section:
-            # We usually load the first one or the one matching current_toc_name if multiple?
-            # The PHP logic seems to load the TOC file corresponding to 'current_toc_name'
-            # Let's try to load the MD file for current_toc_name
-            toc_md_path = os.path.join(SOURCE_DIR, 'toc', f'{current_toc_name}.md')
+            # Load the MD file for current_toc_name from the correct language dir
+            toc_md_path = os.path.join(lang_source_dir, 'toc', f'{current_toc_name}.md')
             if os.path.exists(toc_md_path):
                 with open(toc_md_path, 'r') as f:
                     toc_md = f.read()
@@ -180,95 +182,119 @@ def generate_navbar_real(lang, current_toc_name, current_file):
         
     return nav_html
 
-def build():
-    if not os.path.exists(OUTPUT_DIR):
-        os.makedirs(OUTPUT_DIR)
-    
-    # Copy images mock
-    if not os.path.exists(os.path.join(OUTPUT_DIR, '../img')):
-        os.makedirs(os.path.join(OUTPUT_DIR, '../img'))
-    # Assuming images are accessible at ../img relative to html files
-        
-    header = load_template_file("header.html")
-    footer = load_template_file("footer.html")
-    
-    header = process_replacements(header, True)
-    footer = process_replacements(footer, True)
-    
-    # Generate for translated files
-    files = [f for f in os.listdir(SOURCE_DIR) if f.endswith('.md')]
-    
-    for filename in files:
-        with open(os.path.join(SOURCE_DIR, filename), 'r') as f:
-            md_content = f.read()
-            
-        # Extract TOC from frontmatter if present
-        toc_match = re.search(r'toc: "(.*?)"', md_content)
-        toc_name = toc_match.group(1) if toc_match else "home"
-        
-        # Remove frontmatter
-        md_content = re.sub(r'^---.*?---', '', md_content, flags=re.DOTALL)
-        
-        # Process custom tags on raw markdown
-        md_content = process_replacements(md_content)
-        
-        # Fix image paths for preview: img/ -> ../img/
-        md_content = md_content.replace('](img/', '](../img/')
-        
-        content_html, on_page_nav = simple_markdown_to_html(md_content)
-        # content_html = process_replacements(content_html) # Removed from here
-        
-        page = header
-        page = page.replace('[[TOCNAME]]', toc_name)
-        page = page.replace('[[NAVBAR]]', generate_navbar_real('es', toc_name, filename.replace('.md', '')))
-        page = page.replace('[[ONPAGENAV]]', on_page_nav)
-        page = page.replace('[[PAGE]]', content_html)
-        
-        # Append footer
-        page += footer
-        
-        output_filename = filename.replace('.md', '.html')
-        with open(os.path.join(OUTPUT_DIR, output_filename), 'w') as f:
-            f.write(page)
-            
-    # Build Search Index
-    search_data = []
-    import json
-    
-    for filename in files:
-        with open(os.path.join(SOURCE_DIR, filename), 'r') as f:
-            md_content = f.read()
-            
-        # Extract title from H1 or filename
-        title_match = re.search(r'^#\s+(.*)', md_content, flags=re.MULTILINE)
-        title = title_match.group(1) if title_match else filename.replace('.md', '').replace('_', ' ').capitalize()
-        
-        # Remove frontmatter
-        clean_content = re.sub(r'^---.*?---', '', md_content, flags=re.DOTALL)
-        # Remove tags
-        clean_content = re.sub(r'{[^}]+}', '', clean_content)
-        # Remove markdown syntax (basically)
-        clean_content = re.sub(r'[#*\[\]`]', '', clean_content)
-        clean_content = re.sub(r'!\[.*?\]\(.*?\)', '', clean_content) # images
-        clean_content = re.sub(r'<[^>]+>', '', clean_content) # html
-        clean_content = " ".join(clean_content.split()) # normalize whitespace (and remove newlines)
-        
-        search_data.append({
-            "title": title,
-            "url": filename.replace('.md', '.html'),
-            "content": clean_content[:1000] # Index first 1000 chars to save space? Or full text. Let's do partial for speed if large. But manual is small. Let's do full text but maybe limit if needed. Manual is small, 77 files. Full text is fine.
-        })
-        
-    js_output_dir = os.path.join(OUTPUT_DIR, 'js')
-    if not os.path.exists(js_output_dir):
-        os.makedirs(js_output_dir)
-        
-    with open(os.path.join(js_output_dir, 'search_index.js'), 'w') as f:
-        f.write(f"var searchData = {json.dumps(search_data)};")
-        
-    print(f"Generated search index in {js_output_dir}")
+LANGUAGES = ['en', 'es', 'ca']
 
-    print(f"Generated {len(files)} files in {OUTPUT_DIR}")
+def build():
+    # Base output 
+    base_output_dir = "output"
+    if not os.path.exists(base_output_dir):
+        os.makedirs(base_output_dir)
+    
+    # Copy images mock (Shared)
+    if not os.path.exists(os.path.join(base_output_dir, 'img')):
+        os.makedirs(os.path.join(base_output_dir, 'img'))
+    # Note: Logic assumes images are in source/es/img or just manually placed in output? 
+    # Original logic: os.makedirs(os.path.join(OUTPUT_DIR, '../img')) -> output/img
+    
+    # Copy CSS (Shared)
+    layout_css = os.path.join(TEMPLATE_DIR, 'manual.css')
+    output_css = os.path.join(base_output_dir, 'manual.css')
+    if os.path.exists(layout_css):
+        shutil.copy(layout_css, output_css)
+        print(f"Copied CSS to {output_css}")
+        
+    header_template = load_template_file("header.html")
+    footer_template = load_template_file("footer.html")
+    
+    header_template = process_replacements(header_template, True)
+    footer_template = process_replacements(footer_template, True)
+    
+    for lang in LANGUAGES:
+        print(f"--- Building Language: {lang} ---")
+        current_source_dir = f"source/{lang}"
+        current_output_dir = f"output/{lang}"
+        
+        if not os.path.exists(current_source_dir):
+            print(f"Skipping {lang}, source not found: {current_source_dir}")
+            continue
+            
+        if not os.path.exists(current_output_dir):
+            os.makedirs(current_output_dir)
+            
+        # Files to process
+        files = [f for f in os.listdir(current_source_dir) if f.endswith('.md')]
+        search_data = []
+        
+        for filename in files:
+            with open(os.path.join(current_source_dir, filename), 'r') as f:
+                md_content = f.read()
+                
+            # Extract TOC from frontmatter if present
+            toc_match = re.search(r'toc: "(.*?)"', md_content)
+            toc_name = toc_match.group(1) if toc_match else "home"
+            
+            # Remove frontmatter
+            md_content = re.sub(r'^---.*?---', '', md_content, flags=re.DOTALL)
+            
+            # Process custom tags on raw markdown
+            md_content = process_replacements(md_content)
+            
+            # Fix image paths for preview: img/ -> ../img/ (One level up from lang dir)
+            md_content = md_content.replace('](img/', '](../img/')
+            
+            content_html, on_page_nav = simple_markdown_to_html(md_content)
+            
+            page = header_template
+            page = page.replace('[[TOCNAME]]', toc_name)
+            
+            # Generate Navbar for this language
+            # We must pass the correct language to generate_navbar_real so it reads the right nav_bar.json
+            # IMPORTANT: generate_navbar_real reads from global SOURCE_DIR if not careful.
+            # We must modify generate_navbar_real to take source_dir or language path
+            # Current implementation: it takes 'lang' but uses os.path.join(SOURCE_DIR, 'toc'...)
+            # SOURCE_DIR is global "source/es". WE NEED TO FIX THIS IN generate_navbar_real logic or pass paths.
+            # Fix: Update generate_navbar_real to construct path dynamically based on lang.
+            
+            page = page.replace('[[NAVBAR]]', generate_navbar_real(lang, toc_name, filename.replace('.md', '')))
+            page = page.replace('[[ONPAGENAV]]', on_page_nav)
+            page = page.replace('[[PAGE]]', content_html)
+            page = page.replace('[[CURRENT_FILENAME]]', filename.replace('.md', '.html'))
+            
+            # Append footer
+            page += footer_template
+            
+            output_filename = filename.replace('.md', '.html')
+            with open(os.path.join(current_output_dir, output_filename), 'w') as f:
+                f.write(page)
+                
+            # --- Search Index Generation ---
+            # Extract title from H1 or filename
+            clean_content_for_search = md_content # Start with processed replacement content
+            title_match = re.search(r'^#\s+(.*)', clean_content_for_search, flags=re.MULTILINE)
+            title = title_match.group(1) if title_match else filename.replace('.md', '').replace('_', ' ').capitalize()
+            
+            # Cleanup for search index
+            clean_content_for_search = re.sub(r'<[^>]+>', '', clean_content_for_search) # html strip
+            clean_content_for_search = re.sub(r'[#*\[\]`]', '', clean_content_for_search)
+            clean_content_for_search = " ".join(clean_content_for_search.split())
+            
+            search_data.append({
+                "title": title,
+                "url": output_filename,
+                "content": clean_content_for_search[:1000]
+            })
+            
+        # Write Search Index for this language
+        js_output_dir = os.path.join(current_output_dir, 'js')
+        if not os.path.exists(js_output_dir):
+            os.makedirs(js_output_dir)
+            
+        with open(os.path.join(js_output_dir, 'search_index.js'), 'w') as f:
+            f.write(f"var searchData = {json.dumps(search_data)};")
+            
+        print(f"Generated {len(files)} files for {lang}")
+
+    print(f"Build Complete.")
 
 if __name__ == "__main__":
     build()

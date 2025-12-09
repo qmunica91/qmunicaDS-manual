@@ -1,0 +1,65 @@
+[
+  {
+    "title": "Primers Passos",
+    "href": "index.html",
+    "containsToc": [
+      "getting_started"
+    ]
+  },
+  {
+    "title": "Dissenys",
+    "href": "layouts_editor.html",
+    "containsToc": [
+      "layouts"
+    ]
+  },
+  {
+    "title": "Multimèdia",
+    "href": "media_library.html",
+    "containsToc": [
+      "media"
+    ]
+  },
+  {
+    "title": "Mòduls",
+    "href": "media_modules.html",
+    "containsToc": [
+      "widgets"
+    ]
+  },
+  {
+    "title": "Programació",
+    "href": "scheduling_events.html",
+    "containsToc": [
+      "scheduling"
+    ]
+  },
+  {
+    "title": "Pantalles",
+    "href": "displays.html",
+    "containsToc": [
+      "displays"
+    ]
+  },
+  {
+    "title": "Usuaris",
+    "href": "users_administration.html",
+    "containsToc": [
+      "users"
+    ]
+  },
+  {
+    "title": "Configuració",
+    "href": "configure_cms_settings.html",
+    "containsToc": [
+      "configure"
+    ]
+  },
+  {
+    "title": "Resolució de Problemas",
+    "href": "troubleshooting.html",
+    "containsToc": [
+      "troubleshooting"
+    ]
+  }
+]

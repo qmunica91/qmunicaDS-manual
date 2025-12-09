@@ -35,13 +35,17 @@
         });
 
         // Font Size Control (Slider)
-        var currentFontSize = parseFloat(localStorage.getItem('fontSize')) || 150;
-        $('body').css('font-size', currentFontSize + '%');
+        var currentFontSize = parseFloat(localStorage.getItem('fontSize')) || 100;
+        // Default relative to 16px is 100% (16px). Range 100-250%.
+
+        // Apply to main content only
+        $('.col-md-9[role="main"]').css('font-size', currentFontSize + '%');
         $('#fontSlider').val(currentFontSize); // Initialize slider
 
         $('#fontSlider').on('input change', function () {
             var val = $(this).val();
-            $('body').css('font-size', val + '%');
+            // Apply only to the main content column so navbar/sidebar don't break
+            $('.col-md-9[role="main"]').css('font-size', val + '%');
             localStorage.setItem('fontSize', val);
         });
 
