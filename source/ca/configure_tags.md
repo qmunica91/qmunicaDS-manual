@@ -3,55 +3,55 @@ toc: "configure"
 maxHeadingLevel: 3
 minHeadingLevel: 2
 alias: "tour_tags"
-excerpt: "Creación y Gestión de Etiquetas usadas en todo el CMS"
-keywords: "valores asociados, etiquetas del sistema, valor, requerido, asignando etiquetas, eliminar etiquetas en masa"
+excerpt: "Creació i Gestió d'Etiquetes usades en tot el CMS"
+keywords: "valors associats, etiquetes del sistema, valor, requerit, assignant etiquetes, eliminar etiquetes en massa"
 ---
 
-# Etiquetas
+# Etiquetes
 
-Las Etiquetas se usan en todo el CMS para organizar y categorizar fácilmente elementos para facilitar a los Usuarios su localización y uso. Las Etiquetas actúan como palabras clave o rótulos que cuando se asignan a elementos mejoran la funcionalidad de búsqueda para los Usuarios.
+Les Etiquetes s'usen en tot el CMS per organitzar i categoritzar fàcilment elements per facilitar als Usuaris la seva localització i ús. Les Etiquetes actuen com paraules clau o rètols que quan s'assignen a elements milloren la funcionalitat de cerca per als Usuaris.
 
 {nonwhite}
 
-## Vídeo explicativo
+## Vídeo explicatiu
 
 {video}gHRMKiiXdRA|how_to_managing_tags.png{/video}
 {/nonwhite}
 
-Las Etiquetas pueden ser creadas por Usuarios desde varios formularios en todo el CMS, así como creadas y gestionadas por Administradores desde la página de Etiquetas bajo la sección Administración del menú principal del CMS.
+Les Etiquetes poden ser creades per Usuaris des de diversos formularis en tot el CMS, així com creades i gestionades per Administradors des de la pàgina d'Etiquetes sota la secció Administració del menú principal del CMS.
 
-Crea y asigna **Etiquetas** a elementos en todo el CMS usando el campo de Etiqueta en los formularios. A medida que se introduce texto, un ayudante de autocompletar mostrará posibles coincidencias para facilitar a los Usuarios ver qué Etiquetas ya están disponibles para seleccionar:
+Crea i assigna **Etiquetes** a elements en tot el CMS usant el camp d'Etiqueta en els formularis. A mesura que s'introdueix text, un ajudant d'autocompletar mostrarà possibles coincidències per facilitar als Usuaris veure quines Etiquetes ja estan disponibles per seleccionar:
 
-- Selecciona una **Etiqueta** de la lista o crea una nueva escribiendo directamente en el campo de Etiqueta.
+- Selecciona una **Etiqueta** de la llista o crea una nova escrivint directament en el camp d'Etiqueta.
 
-Las Etiquetas también pueden ser creadas por Administradores desde la página de **Etiquetas** bajo la sección **Administración** del menú principal del CMS.
+Les Etiquetes també poden ser creades per Administradors des de la pàgina d'**Etiquetes** sota la secció **Administració** del menú principal del CMS.
 
-- Haz clic en el botón **Añadir Etiqueta** y dale un **Nombre**.
+- Fes clic al botó **Afegir Etiqueta** i dóna-li un **Nom**.
 
-Las Etiquetas opcionalmente pueden tener Valores de Etiqueta asociados con ellas. Por ejemplo, podrías tener una Etiqueta Recepción, con áreas de recepción en múltiples sitios. Estas podrían diferenciarse usando Valores creando una cadena separada por comas de números, 1,2,3.
+Les Etiquetes opcionalment poden tenir Valors d'Etiqueta associats amb elles. Per exemple, podries tenir una Etiqueta Recepció, amb àrees de recepció en múltiples llocs. Aquestes podrien diferenciar-se usant Valors creant una cadena separada per comes de números, 1,2,3.
 
-La casilla de verificación **Valor Requerido** se usa para asegurar que un Usuario ***debe*** seleccionar un Valor para asignar exitosamente la Etiqueta al elemento.
+La casella de verificació **Valor Requerit** s'usa per assegurar que un Usuari ***ha de*** seleccionar un Valor per assignar exitosament l'Etiqueta a l'element.
 
-Una vez habilitada, cuando la Etiqueta es seleccionada por Usuarios, cualquier Valor asociado se mostrará para selección. Se mostrará un mensaje de advertencia a los Usuarios que no seleccionen un Valor para avisarles que lo hagan.
+Un cop habilitada, quan l'Etiqueta és seleccionada per Usuaris, qualsevol Valor associat es mostrarà per a selecció. Es mostrará un missatge d'advertència als Usuaris que no seleccionin un Valor per avisar-los que ho facin.
 
-Los Usuarios también pueden añadir Valores asociados a Etiquetas usando el campo **Valor de Etiqueta** en los formularios.
+Els Usuaris també poden afegir Valors associats a Etiquetes usant el camp **Valor d'Etiqueta** en els formularis.
 
-Los Administradores pueden ver todas las **Etiquetas del Sistema** desde la página de gestión de Etiquetas y ver informes de Uso usando el menú de fila para cada Etiqueta individual.
+Els Administradors poden veure totes les **Etiquetes del Sistema** des de la pàgina de gestió d'Etiquetes i veure informes d'Ús usant el menú de fila per a cada Etiqueta individual.
 
-Usa la opción **Con Seleccionados** en la parte inferior de la cuadrícula para **Eliminar** Etiquetas en masa.
+Usa l'opció **Amb Seleccionats** a la part inferior de la quadrícula per **Eliminar** Etiquetes en massa.
 
-## Lectura Adicional
+## Lectura Addicional
 
-[Gestionando Carpetas](configure_folders.html)
+[Gestionant Carpetes](configure_folders.html)
 
-## Preguntas Frecuentes
+## Preguntes Freqüents
 
-***¿Puedo usar opciones de filtro para excluir Etiquetas de las búsquedas?***
+***Puc usar opcions de filtre per excloure Etiquetes de les cerques?***
 
-- Ingresa `-Etiqueta` para excluir la etiqueta de los resultados de búsqueda.
-- Ingresa `-|Valor` para excluir el valor de los resultados de búsqueda.
-- Ingresa `-Etiqueta|Valor` para excluir tanto etiqueta como valor de los resultados de búsqueda.
+- Ingressa `-Etiqueta` per excloure l'etiqueta dels resultats de cerca.
+- Ingressa `-|Valor` per excloure el valor dels resultats de cerca.
+- Ingressa `-Etiqueta|Valor` per excloure tant etiqueta com valor dels resultats de cerca.
 
-¡Puedes tener una mezcla separada por comas de todo lo anterior!
+¡Pots tenir una barreja separada per comes de tot l'anterior!
 
-- Si quieres mostrar todos los elementos que **no** tienen una etiqueta entonces ingresa `--no-tag`
+- Si vols mostrar tots els elements que **no** tenen una etiqueta llavors ingressa `--no-tag`

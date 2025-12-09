@@ -31,7 +31,7 @@ Els [Elements](layouts_editor#content-data-widgets-and-elements) estan disponibl
 ¡Veuràs un missatge al panell de propietats si intentes usar un Element que no té un tipus de camp coincident en el teu Conjunt de Dades!
 {/tip}
 
-Cada Element té un conjunt d'opcions de configuració en el Panell de Propietats. S'ha de seleccionar un Conjunt de Dades per usar com a font de dades des de la pestanya **Configurar** per a cada Element usat en el Disseny. Controla com els articles han de ciclar-se especificant una [Ranura de Dades](layouts_editor.html#content-data-slots) per usar per a cadascun dels Elements afegits. Els Elements de Dades poden complementar-se encara més afegint Elements Globals per afegir formes i text que es poden posar en un Grup d'Elements per a una configuració i posicionament més fàcils.
+Cada Element té un conjunt d'opcions de configuració en el Panell de Propietats. S'ha de seleccionar un Conjunt de Dades per usar com a font de dades des de la pestanya **Configurar** per a cada Element usat en el Disseny. Controla com els articles han de ciclar-se especificant un [Espai de Dades](layouts_editor.html#content-data-slots) per usar per a cadascun dels Elements afegits. Els Elements de Dades poden complementar-se encara més afegint Elements Globals per afegir formes i text que es poden posar en un Grup d'Elements per a una configuració i posicionament més fàcils.
 
 ## Plantilles Estàtiques de Conjunt de Dades
 

@@ -3,261 +3,261 @@ toc: "configure"
 maxHeadingLevel: 3
 minHeadingLevel: 2
 alias: "tour_cms_settings"
-excerpt: "Opciones configurables en los Ajustes del CMS para Administradores"
-keywords: "redimensionar imágenes, predeterminados de transición, publicar diseño automáticamente, ajustes predeterminados de prueba de reproducción, biblioteca limpia, ajustes de mantenimiento, ajustes de red, ajustes regionales, establecer zona horaria, establecer idioma, política de contraseñas, recordatorio de contraseña, autenticación de dos factores, fuentes, aplicaciones, diseño predeterminado global"
+excerpt: "Opcions configurables en els Ajustos del CMS per a Administradors"
+keywords: "redimensionar imatges, predeterminats de transició, publicar disseny automàticament, ajustos predeterminats de prova de reproducció, biblioteca neta, ajustos de manteniment, ajustos de xarxa, ajustos regionals, establir zona horària, establir idioma, política de contrasenyes, recordatori de contrasenya, autenticació de dos factors, fonts, aplicacions, disseny predeterminat global"
 ---
 
-# Ajustes de Administrador del CMS
+# Ajustos d'Administrador del CMS
 
 {nonwhite}
-Una vez que tu CMS esté instalado, se requiere alguna configuración adicional para habilitar toda la funcionalidad. Por favor consulta la siguiente guía: [Guía de Configuración Posterior a la Instalación del CMS](/docs/setup/xibo-cms-post-installation-setup-guide.html)
+Un cop el teu CMS estigui instal·lat, es requereix alguna configuració addicional per habilitar tota la funcionalitat. Si us plau consulta la següent guia: [Guia de Configuració Posterior a la Instal·lació del CMS](/docs/setup/xibo-cms-post-installation-setup-guide.html)
 {/nonwhite}
 
-Como cualquier aplicación compleja, el CMS de [[PRODUCTNAME]] viene con un número de opciones configurables. Estas se encuentran en la página **Ajustes** bajo la sección **Administración** del menú principal del CMS.
+Com qualsevol aplicació complexa, el CMS de [[PRODUCTNAME]] ve amb un nombre d'opcions configurables. Aquestes es troben en la pàgina **Configuració** sota la secció **Administració** del menú principal del CMS.
 
 {nonwhite}
 {cloud}
-Los clientes alojados en **Xibo Cloud** tendrán algunos de estos campos pre-poblados como parte del servicio. Algunos pueden cambiarse y otros están bloqueados para deshabilitar la edición. Para más información, por favor consulta esta página: [Predeterminados y Restricciones del CMS de Xibo Cloud](/docs/setup/xibo-in-the-cloud.html#content-xibo-cloud-cms-defaults-and-restrictions).
+Els clients allotjats en **Xibo Cloud** tindran alguns d'aquests camps pre-poblats com a part del servei. Alguns poden canviar-se i altres estan bloquejats per deshabilitar l'edició. Per a més informació, si us plau consulta aquesta pàgina: [Predeterminats i Restriccions del CMS de Xibo Cloud](/docs/setup/xibo-in-the-cloud.html#content-xibo-cloud-cms-defaults-and-restrictions).
 {/cloud}
 {/nonwhite}
 
-Los ajustes se dividen en pestañas de categorías relacionadas:
+Els ajustos es divideixen en pestanyes de categories relacionades:
 
 ![CMS Settings](img/v4_tour_cms_settings_admin.png)
 
-## Configuración
+## Configuració
 
-Desde esta pestaña visualiza la **Clave Secreta del CMS** que se usa para autenticar Reproductores con el CMS y aplica un **Tema** a las páginas (si aplica) así como configurar el posicionamiento predeterminado para el [Menú de Navegación](tour_cms_navigation.html).
+Des d'aquesta pestanya visualitza la **Clau Secreta del CMS** que s'usa per autenticar Reproductors amb el CMS i aplica un **Tema** a les pàgines (si aplica) així com configurar el posicionament predeterminat per al [Menú de Navegació](tour_cms_navigation.html).
 
-## Predeterminados
+## Predeterminats
 
-Usa esta pestaña para aplicar valores predeterminados a todos los archivos de [Medios](media_library.html) y establecer [Transiciones](configure_transitions.html) predeterminadas.
+Usa aquesta pestanya per aplicar valors predeterminats a tots els fitxers de [Mitjans](media_library.html) i establir [Transicions](configure_transitions.html) predeterminades.
 
-También puedes configurar Diseños para **Publicar automáticamente** 30 minutos después de la última edición registrada habilitando la casilla de verificación para este ajuste.
+També pots configurar Dissenys per **Publicar automàticament** 30 minuts després de l'última edició registrada habilitant la casella de verificació per a aquest ajust.
 
-### Redimensionar Imágenes
+### Redimensionar Imatges
 
-Se pueden especificar umbrales y límites predeterminados que luego se consideran en el caso de que una imagen deba redimensionarse. Esto podría ser al subir una imagen o al descargar una imagen por un Widget - NASA RSS en un Widget Ticker por ejemplo.
+Se poden especificar llindars i límits predeterminats que després es consideren en el cas que una imatge s'hagi de redimensionar. Això podria ser al pujar una imatge o al descarregar una imatge per un Widget - NASA RSS en un Widget Ticker per exemple.
 
-- #### Umbral de Redimensionamiento
+- #### Llindar de Redimensionament
 
-Establece un umbral máximo (basado en el lado más largo) que debe considerarse para redimensionar una imagen.
+Estableix un llindar màxim (basat en el costat més llarg) que s'ha de considerar per redimensionar una imatge.
 
 {tip}
-Si estableces un Umbral de Redimensionamiento de 1920 y subes/descargas una imagen que es 800, esta imagen no necesitaría redimensionarse. Si subiste/descargaste una imagen que era 2400, esta se redimensionaría a 1920.
+Si estableixes un Llindar de Redimensionament de 1920 i puges/descarregues una imatge que és 800, aquesta imatge no necessitaria redimensionar-se. Si vas pujar/descarregar una imatge que era 2400, aquesta es redimensionaria a 1920.
 {/tip}
 
-- #### Límite de Redimensionamiento
+- #### Límit de Redimensionament
 
-Establece un límite (basado en el lado más largo) para imágenes subidas/descargadas. Las imágenes que excedan este límite no se procesarán y deben reemplazarse con otra imagen que esté dentro del límite.
+Estableix un límit (basat en el costat més llarg) per a imatges pujades/descarregades. Les imatges que excedeixin aquest límit no es processaran i han de reemplaçar-se amb una altra imatge que estigui dins del límit.
 
-Este ajuste determinará si el archivo de imagen es demasiado grande para ser procesado.
+Aquest ajust determinarà si el fitxer d'imatge és massa gran per ser processat.
 
-- #### Número máximo de Filas de Conjunto de Datos
+- #### Nombre màxim de Files de Conjunt de Dades
 
-Establece el número máximo permitido de filas que un Usuario puede crear en un Conjunto de Datos.
+Estableix el nombre màxim permès de files que un Usuari pot crear en un Conjunt de Dades.
 
 {nonwhite}
 {cloud}
-El valor predeterminado para clientes de Cloud se establece en 10,000 filas por Conjunto de Datos.
+El valor predeterminat per a clients de Cloud s'estableix en 10,000 files per Conjunt de Dades.
 {/cloud}
 {/nonwhite}
 
 ## **Pantallas**
 
-Establece valores predeterminados para **Latitud** y **Longitud** para todas las vistas previas conscientes de Geo en todo el CMS.
+Estableix valors predeterminats per a **Latitud** i **Longitud** per a totes les vistes prèvies conscients de Geo en tot el CMS.
 
-### Diseño Predeterminado
+### Disseny Predeterminat
 
-El Diseño Predeterminado establecido aquí se asignará automáticamente a todas las Pantallas para mostrarse cuando no haya otro contenido programado o si hay un problema que impida que se muestre un Evento programado.
+El Disseny Predeterminat establert aquí s'assignarà automàticament a totes les Pantalles per mostrar-se quan no hi hagi un altre contingut programat o si hi ha un problema que impedeixi que es mostri un Event programat.
 
 {nonwhite}
 {tip}
-Puedes crear tu propio Diseño para reemplazar el predeterminado preestablecido, pero ten en cuenta que los diseños deben mantenerse simples sin contenido multimedia o web complejo.
+Pots crear el teu propi Disseny per reemplaçar el predeterminat preestablert, però tingues en compte que els dissenys han de mantenir-se simples sense contingut multimèdia o web complex.
 {/tip}
 {/nonwhite}
 
-Este Diseño Predeterminado global puede anularse para Pantallas individuales seleccionando un [Diseño Predeterminado](displays.html#content-default-layout) alternativo para usar.
+Aquest Disseny Predeterminat global pot ser anul·lat per a Pantalles individuals seleccionant un [Disseny Predeterminat](displays.html#content-default-layout) alternatiu per usar.
 
-### Ajustes Predeterminados de Prueba de Reproducción
+### Ajustos Predeterminats de Prova de Reproducció
 
-Establece el **Nivel de agregación** de la recopilación de estadísticas de [Prueba de Reproducción](displays_metrics.html) para aplicar a todos los **Diseños** / **Medios** y **elementos de Widget** por defecto.
+Estableix el **Nivell d'agregació** de la recopilació d'estadístiques de [Prova de Reproducción](displays_metrics.html) per aplicar a tots els **Dissenys** / **Mitjans** i **elements de Widget** per defecte.
 
-- **Individual** - las estadísticas se registran al inicio y al final de cada elemento individualmente y se envían de vuelta al CMS en cada intervalo de recopilación.
-- **Horario** - registra cada elemento una vez, e incluye el número total de veces reproducido y la duración del tiempo reproducido durante la hora y se envía de vuelta al CMS en el siguiente intervalo de recopilación después de que el período de hora haya expirado.
-- **Diario** - registra cada elemento una vez, e incluye el número total de veces reproducido y la duración del tiempo reproducido durante el día y se envía de vuelta al CMS en el siguiente intervalo de recopilación después de que el día haya expirado.
+- **Individual** - les estadístiques es registren a l'inici i al final de cada element individualment i s'envien de tornada al CMS en cada interval de recopilació.
+- **Horari** - registra cada element una vegada, i inclou el nombre total de vegades reproduït i la durada del temps reproduït durant l'hora i s'envia de tornada al CMS en el següent interval de recopilació després que el període d'hora hagi expirat.
+- **Diari** - registra cada element una vegada, i inclou el nombre total de vegades reproduït i la durada del temps reproduït durant el dia i s'envia de tornada al CMS en el següent interval de recopilació després que el dia hagi expirat.
 
 {tip}
-¡Los Reproductores agregan solo 'registros completados', con la recopilación hecha al final de la duración de los Widgets, así que si un Widget tiene una duración de 3 horas, la estadística se registrará una vez que el Widget haya expirado!
+¡Els Reproductors agreguen només 'registres completats', amb la recopilació feta al final de la durada dels Widgets, així que si un Widget té una durada de 3 hores, l'estadística es registrarà una vegada que el Widget hagi expirat!
 {/tip}
 
-- Usa esta casilla para **habilitar la recopilación** de estadísticas de Prueba de Reproducción a todas las **Pantallas** por defecto.
+- Usa aquesta casella per **habilitar la recopilació** d'estadístiques de Prova de Reproducció a totes les **Pantalles** per defecte.
 
 {tip}
-Esto se puede alternar encendido/apagado editando [Perfiles de Configuración de Pantalla](displays_settings.html#content-editing-profiles).
+Això es pot alternar encès/apagat editant [Perfils de Configuració de Pantalla](displays_settings.html#content-editing-profiles).
 {/tip}
 
-- Marca la casilla para establecer el valor predeterminado en encendido para la recopilación de estadísticas de Prueba de Reproducción para todos los **Diseños** recién agregados.
+- Marca la casella per establir el valor predeterminat en encès per a la recopilació d'estadístiques de Prova de Reproducció per a tots els **Dissenys** recentment afegits.
 
 {tip}
-La recopilación se puede deshabilitar desmarcando la casilla en el formulario **Añadir/Editar** Diseño.
+La recopilació es pot deshabilitar desmarcant la casella en el formulari **Afegir/Editar** Disseny.
 {/tip}
 
-Usa los ajustes para habilitar la recopilación de estadísticas de Prueba de Reproducción para aplicar a todos los **Medios**, **Listas de Reproducción** y **Widgets** (Apagado/Encendido/Heredar).
+Usa els ajustos per habilitar la recopilació d'estadístiques de Prova de Reproducció per aplicar a tots els **Mitjans**, **Llistes de Reproducció** i **Widgets** (Apagat/Encès/Heretar).
 
 {tip}
-¡Se pretende que **Widget** siempre esté establecido en Heredar para que las opciones de Diseño y Medios controlen la recopilación!
+¡Es pretén que **Widget** sempre estigui establert en Heretar perquè les opcions de Disseny i Mitjans controlin la recopilació!
 {/tip}
 
 ## General
 
-Ve/establece la dirección para el **Manual de Usuario** y marca para enviar **estadísticas anónimas** para ayudar a mejorar el software.
+Visualitza/estableix l'adreça per al **Manual d'Usuari** i marca per enviar **estadístiques anònimes** per ajudar a millorar el programari.
 
-### Limpieza de Biblioteca (Global)
+### Neteja de Llibreria (Global)
 
-La Biblioteca puede ser *limpiada* por un Super Administrador o Usuario para que se mantenga limpia y pequeña.
-**Las acciones no pueden revertirse, por lo que esto debe usarse con precaución.**
+La Llibreria pot ser *netejada* per un Super Administrador o Usuari perquè es mantingui neta i petita.
+**Les accions no poden revertir-se, per la qual cosa això ha d'usar-se amb precaució.**
 
 {tip}
-Esto podría ser de particular interés si el CMS está instalado en un servidor web que tiene cuotas o si a los Usuarios se les han asignado sus propias cuotas.
+Això podria ser de particular interès si el CMS està instal·lat en un servidor web que té quotes o si als Usuaris se'ls han assignat les seves pròpies quotes.
 {/tip}
 
-Los Administradores pueden iniciar una operación de limpieza de Biblioteca en todo el sistema haciendo clic en el botón **Limpiar Biblioteca** en la esquina derecha de la página de Ajustes:
+Els Administradors poden iniciar una operació de neteja de Llibreria en tot el sistema fent clic al botó **Netejar Llibreria** a la cantonada dreta de la pàgina de Configuració:
 
 ![Settings Tidy Library](img/v4_tour_cms_settings_tidy_library.png)
 
-Como esta funcionalidad es en todo el sistema y por lo tanto opera en **TODOS** los archivos de Usuario, se requiere confirmación para eliminar revisiones no utilizadas y antiguas.
+Com aquesta funcionalitat és en tot el sistema i per tant opera en **TOTS** els fitxers d'Usuari, es requereix confirmació per eliminar revisions no utilitzades i antigues.
 
-Esta opción es más completa y elimina:
+Aquesta opció és més completa i elimina:
 
-- Archivos temporales
-- Archivos huérfanos
-- Miniaturas
-- Revisiones de medios que no se usan en ninguna parte
-- Medios que no se usan en ninguna parte (en ningún Diseño / Grupo de Pantallas / Pantallas)
-- Archivos genéricos subidos al CMS
+- Fitxers temporals
+- Fitxers orfes
+- Miniatures
+- Revisions de mitjans que no s'usen enlloc
+- Mitjans que no s'usen enlloc (en cap Disseny / Grup de Pantalles / Pantalles)
+- Fitxers genèrics pujats al CMS
 
-#### Archivos huérfanos
+#### Fitxers orfes
 
-Los archivos huérfanos son una ocurrencia rara donde un archivo almacenado en disco en la carpeta de la Biblioteca no se elimina cuando el elemento de Medios se elimina de la Biblioteca. Esto significa que el archivo existe pero el CMS no sabe nada al respecto.
+Els fitxers orfes són una ocurrència rara on un fitxer emmagatzemat en disc en la carpeta de la Llibreria no s'elimina quan l'element de Mitjans s'elimina de la Llibreria. Això significa que el fitxer existeix però el CMS no en sap res al respecte.
 
-### Limpieza desde Biblioteca de Usuario
+### Neteja des de Llibreria d'Usuari
 
 {nonwhite}
 {cloud}
-La función de Limpiar Biblioteca está desactivada por defecto para clientes de **Xibo Cloud Hosting** ya que puede ser potencialmente destructiva si las opciones no se entienden completamente.
+La funció de Netejar Llibreria està desactivada per defecte per a clients de **Xibo Cloud Hosting** ja que pot ser potencialment destructiva si les opcions no s'entenen completament.
 {/cloud}
 {/nonwhite}
 
-Permite a un Usuario limpiar archivos desde la página de [Biblioteca](media_library.html#content-tidy-library) usando la casilla de verificación para **Habilitar Limpieza de Biblioteca**.
+Permet a un Usuari netejar fitxers des de la pàgina de [Llibreria](media_library.html#content-tidy-library) usant la casella de verificació per a **Habilitar Neteja de Llibreria**.
 
-## Mantenimiento
+## Manteniment
 
-Desde aquí **Habilitar Mantenimiento** y **Alertas de Correo Electrónico** para ser enviadas y establecer las edades máximas de retención para **Registros** y **Estadísticas**.
+Des d'aquí **Habilitar Manteniment** i **Alertes de Correu Electrònic** per ser enviades i establir les edats màximes de retenció per a **Registres** i **Estadístiques**.
 
-## Red
+## Xarxa
 
-Desde la pestaña Red completa una **dirección de correo electrónico de Admin** para el administrador general del CMS. Todas las notificaciones de correo electrónico generadas por el CMS se enviarán a esta dirección.
+Des de la pestanya Xarxa completa una **adreça de correu electrònic d'Admin** per a l'administrador general del CMS. Totes les notificacions de correu electrònic generades pel CMS s'enviaran a aquesta adreça.
 
-Asegúrate de que la **dirección de correo electrónico de envío** y el **nombre** estén completos antes de configurar cualquier notificación de correo electrónico adicional en todo el CMS.
+Assegura't que l'**adreça de correu electrònic d'enviament** i el **nom** estiguin complets abans de configurar qualsevol notificació de correu electrònic addicional en tot el CMS.
 
 {nonwhite}
 {noncloud}
-También puedes proporcionar información del Servidor Proxy (si tu CMS está detrás de un proxy) forzar **HTTPS** y establecer límites mensuales de **Ancho de Banda** y tamaño de **Biblioteca**.
+També pots proporcionar informació del Servidor Proxy (si el teu CMS està darrere d'un proxy) forçar **HTTPS** i establir límits mensuals d'**Amplada de Banda** i mida de **Llibreria**.
 {/noncloud}
 {/nonwhite}
 
 ## Compartir
 
-Usa el menú desplegable para cambiar cómo aparece el color del Widget en las Listas de Reproducción para los Usuarios.
+Usa el menú desplegable per canviar com apareix el color del Widget en les Llistes de Reproducció per als Usuaris.
 
-- **Coloreado de Medios** usará los colores del **tema** para cada Widget.
-- **Coloreado de Compartir** mostrará el color del Widget basado en el **acceso de Usuario** desde las opciones de **Compartir**. (Verde = editable)
+- **Acolorit de Mitjans** usarà els colors del **tema** per a cada Widget.
+- **Acolorit de Compartir** mostrarà el color del Widget basat en l'**accés d'Usuari** des de les opcions de **Compartir**. (Verd = editable)
 
-Desde aquí puedes establecer si los Usuarios deben tener la capacidad de programar a Pantallas cuando las opciones de Compartir están establecidas en Ver para el Usuario, así como poder establecer si los Usuarios deben poder ver los nombres de los Diseños en programaciones que no se han compartido con ellos.
+Des d'aquí pots establir si els Usuaris han de tenir la capacitat de programar a Pantalles quan les opcions de Compartir estan establertes en Veure per a l'Usuari, així com poder establir si els Usuaris han de poder veure els noms dels Dissenys en programacions que no s'han compartit amb ells.
 
-Marca para permitir a los Usuarios guardar su contenido en la [Carpeta Raíz](configure_folders.html) de nivel superior o deshabilita para forzar a los Usuarios a seleccionar una Carpeta para guardar.
+Marca per permetre als Usuaris guardar el seu contingut en la [Carpeta Arrel](configure_folders.html) de nivell superior o deshabilita per forçar els Usuaris a seleccionar una Carpeta per guardar.
 
 ## Regional
 
-Desde esta pestaña establece el **Idioma** y la **Zona Horaria** predeterminada y el **Formato de Fecha** para usar en todo el CMS.
+Des d'aquesta pestanya estableix l'**Idioma** i la **Zona Horària** predeterminada i el **Format de Data** per usar en tot el CMS.
 
 {tip}
-¡Selecciona la ciudad principal más cercana en tu zona horaria!
+¡Selecciona la ciutat principal més propera a la teva zona horària!
 {/tip}
 
-Usa la casilla de verificación para detectar el **idioma del navegador** para usar en el CMS y selecciona qué tipo de **Calendario** debe usarse.
+Usa la casella de verificació per detectar l'**idioma del navegador** per usar en el CMS i selecciona quin tipus de **Calendari** ha d'usar-se.
 
-## Resolución de Problemas
+## Resolució de Problemes
 
-Esta pestaña se usa para establecer Niveles de Registro que son útiles para capturar errores de php y problemas de entorno.
+Aquesta pestanya s'usa per establir Nivells de Registre que són útils per capturar errors de php i problemes d'entorn.
 
-## Usuarios
+## Usuaris
 
-Selecciona el Usuario del Sistema y establece el Grupo de Usuarios Predeterminado y el Tipo de Usuario al incorporar nuevos Usuarios.
+Selecciona l'Usuari del Sistema i estableix el Grup d'Usuaris Predeterminat i el Tipus d'Usuari al incorporar nous Usuaris.
 
 {tip}
-¡Recomendamos que el **Tipo de Usuario Predeterminado** se establezca en **Usuario**!
+¡Recomanem que el **Tipus d'Usuari Predeterminat** s'estableixi en **Usuari**!
 {/tip}
 
-### Política de Contraseñas
+### Política de Contrasenyes
 
-Ingresa cualquier expresión regular válida en el campo **Expresión Regular de Política de Contraseñas** para que todas las solicitudes de cambio de contraseña y contraseñas recién creadas se prueben contra esto.
+Ingressa qualsevol expressió regular vàlida en el camp **Expressió Regular de Política de Contrasenyes** perquè totes les sol·licituds de canvi de contrasenya i contrasenyes recentment creades es provin contra això.
 
 {tip}
-¡Se mostrará una descripción de texto a los Usuarios cuando sus contraseñas no cumplan con la política requerida como aviso!
+¡Es mostrarà una descripció de text als Usuaris quan les seves contrasenyes no compleixin amb la política requerida com a avís!
 {/tip}
 
 {nonwhite}
 {cloud}
-Los clientes con [Xibo Cloud Hosting](/hosting) tienen una **política predeterminada establecida** que requiere una contraseña de al menos 10 caracteres.
+Els clients amb [Xibo Cloud Hosting](/hosting) tenen una **política predeterminada establerta** que requereix una contrasenya d'almenys 10 caràcters.
 {/cloud}
 {/nonwhite}
 
-### Recordatorio de Contraseña
+### Recordatori de Contrasenya
 
-Habilita para proporcionar un enlace de restablecimiento de **¿Olvidaste tu Contraseña?** para **Usuarios** al iniciar sesión para que puedan recuperar fácilmente el acceso al CMS.
-
-{tip}
-¡Asegúrate de que se haya ingresado una **dirección de correo electrónico de envío** válida en la pestaña **Red** antes de habilitar esta funcionalidad!
-{/tip}
-
-Se mostrará al Usuario un enlace que, una vez clicado, enviará una **Notificación de Restablecimiento de Contraseña** a su dirección de correo electrónico según consta en su Perfil de Usuario.
+Habilita per proporcionar un enllaç de restabliment de **Has oblidat la teva Contrasenya?** per a **Usuaris** al iniciar sessió perquè puguin recuperar fàcilment l'accés al CMS.
 
 {tip}
-Los **Usuarios** también pueden cambiar sus propias contraseñas, una vez que hayan iniciado sesión en el CMS, desde su **Perfil de Usuario**.
+¡Assegura't que s'hagi ingressat una **adreça de correu electrònic d'enviament** vàlida en la pestanya **Xarxa** abans d'habilitar aquesta funcionalitat!
 {/tip}
 
-## Autenticación de Dos Factores
-
-[Autenticación de Dos Factores](index.html) puede ser configurada por un Usuario para mayor seguridad una vez que haya iniciado sesión.
-
-Una vez configurada, un Usuario necesitaría ingresar el código enviado por correo electrónico o como se muestra en la aplicación Google Authenticator para completar el inicio de sesión para obtener acceso al CMS.
+Es mostrarà a l'Usuari un enllaç que, un cop clicat, enviarà una **Notificació de Restabliment de Contrasenya** a la seva adreça de correu electrònic segons consta en el seu Perfil d'Usuari.
 
 {tip}
-¡Asegúrate de que el usuario haya proporcionado una dirección de correo electrónico para recibir el correo electrónico generado!
+Els **Usuaris** també poden canviar les seves pròpies contrasenyes, un cop hagin iniciat sessió en el CMS, des del seu **Perfil d'Usuari**.
 {/tip}
 
-Establece una **dirección de correo electrónico de envío** válida en la pestaña **Red** y se ha ingresado un nombre en el campo **Emisor de Dos Factores** para que quede claro en la aplicación Google Authenticator y el correo electrónico cuando se generen códigos autenticados para iniciar sesión en el CMS.
+## Autenticació de Dos Factors
 
-Restablece la Autenticación de Dos Factores para Usuarios desde su Perfil de Usuario.
+[Autenticació de Dos Factors](index.html) pot ser configurada per un Usuari per a major seguretat un cop hagi iniciat sessió.
 
-## Aplicaciones
-
-[[PRODUCTNAME]] contiene una API que permite a aplicaciones de terceros conectarse y consumir sus datos.
-
-Las aplicaciones se añaden y configuran desde **Aplicaciones** bajo la sección **Administración** del menú principal del CMS.
+Un cop configurada, un Usuari necessitaria ingressar el codi enviat per correu electrònic o com es mostra en l'aplicació Google Authenticator per completar l'inici de sessió per obtenir accés al CMS.
 
 {tip}
-Antes de usar una Aplicación, cada Usuario debe autorizar la aplicación para actuar en su nombre dentro del CMS.
-Los Usuarios pueden ver Aplicaciones autorizadas desde la sección Mis Aplicaciones de su **Perfil de Usuario**.
+¡Assegura't que l'usuari hagi proporcionat una adreça de correu electrònic per rebre el correu electrònic generat!
 {/tip}
 
-En este momento, el CMS no proporciona a los Usuarios individuales un método para revocar el acceso a una aplicación. Solo un Administrador puede eliminar una aplicación completamente.
+Estableix una **adreça de correu electrònic d'enviament** vàlida en la pestanya **Xarxa** i s'ha ingressat un nom en el camp **Emissor de Dos Factors** perquè quedi clar en l'aplicació Google Authenticator i el correu electrònic quan es generin codis autenticats per iniciar sessió en el CMS.
 
-## Fuentes
+Restableix l'Autenticació de Dos Factors per a Usuaris des del seu Perfil d'Usuari.
 
-[[PRODUCTNAME]] viene con un conjunto de fuentes estándar que se pueden configurar en muchos Widgets:
+## Aplicacions
+
+[[PRODUCTNAME]] conté una API que permet a aplicacions de tercers connectar-se i consumir les seves dades.
+
+Les aplicacions s'afegeixen i configuren des de **Aplicacions** sota la secció **Administració** del menú principal del CMS.
+
+{tip}
+Abans d'usar una Aplicació, cada Usuari ha d'autoritzar l'aplicació per actuar en el seu nom dins del CMS.
+Els Usuaris poden veure Aplicacions autoritzades des de la secció Les Meves Aplicacions del seu **Perfil d'Usuari**.
+{/tip}
+
+En aquest moment, el CMS no proporciona als Usuaris individuals un mètode per revocar l'accés a una aplicació. Només un Administrador pot eliminar una aplicació completament.
+
+## Fonts
+
+[[PRODUCTNAME]] ve amb un conjunt de fonts estàndard que es poden configurar en molts Widgets:
 
 - Aileron Heavy Regular (Aileron-Heavy.otf)
 - Aileron Regular (Aileron-Regular.otf)
@@ -266,24 +266,24 @@ En este momento, el CMS no proporciona a los Usuarios individuales un método pa
 - Linear Regular (linear-by-braydon-fuller.otf)
 
 {version}
-**IMPORTANTE:** es posible establecer una fuente personalizada en muchos Widgets, ya sea a través de una propiedad llamada **Familia de Fuentes** o a través de la lista de selección de **Fuente** del editor visual. Si no se elige una fuente, el Reproductor mostrará su propia fuente predeterminada "sans-serif", referida como la fuente del sistema. Ej. en Android esto es usualmente Roboto.
+**IMPORTANT:** és possible establir una font personalitzada en molts Widgets, ja sigui a través d'una propietat anomenada **Família de Fonts** o a través de la llista de selecció de **Font** de l'editor visual. Si no tria una font, el Reproductor mostrarà la seva pròpia font predeterminada "sans-serif", referida com la font del sistema. Ex. en Android això és usualment Roboto.
 
-Recomendamos siempre elegir una fuente donde esté disponible para evitar que los Reproductores muestren fuentes diferentes.{/version}
+Recomanem sempre triar una font on estigui disponible per evitar que els Reproductors mostrin fonts diferents.{/version}
 
-Gestiona desde la página **Fuentes** bajo la sección **Administración** del menú principal del CMS.
+Gestiona des de la pàgina **Fonts** sota la secció **Administració** del menú principal del CMS.
 
-- Usa el menú de fila para ver los **Detalles** de una Fuente y ver un ejemplo del estilo de fuente:
+- Usa el menú de fila per veure els **Detalls** d'una Font i veure un exemple de l'estil de font:
 
 ![Font Details](img/v4_tour_settings_fonts.png)
 
-Se pueden añadir fuentes adicionales haciendo clic en el botón **Subir Fuente** y usando la herramienta de carga de archivos.
+Se poden afegir fonts addicionals fent clic al botó **Pujar Font** i usant l'eina de càrrega de fitxers.
 
 {tip}
-Si la nueva fuente no se muestra en el editor de texto después de subirla, ¡intenta limpiar la caché del navegador!
+Si la nova font no es mostra en l'editor de text després de pujar-la, ¡intenta netejar la memòria cau del navegador!
 {/tip}
 
 {version}
-**NOTA:** Las fuentes tienen preferencias integradas en ellas conocidas como **etiquetas OS/2**. [[PRODUCTNAME]] busca preferencias OS/2 y puede usar **fuentes con etiquetas OS/2 0 o 8**.
+**NOTA:** Les fonts tenen preferències integrades en elles conegudes com **etiquetes OS/2**. [[PRODUCTNAME]] busca preferències OS/2 i pot usar **fonts amb etiquetes OS/2 0 o 8**.
 
-Las fuentes con otras etiquetas OS/2 pueden producir un error al subir y pueden no mostrarse correctamente.
+Les fonts amb altres etiquetes OS/2 poden produir un error al pujar i poden no mostrar-se correctament.
 {/version}

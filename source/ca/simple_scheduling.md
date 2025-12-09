@@ -2,54 +2,54 @@
 toc: "scheduling"
 maxHeadingLevel: 3
 minHeadingLevel: 1
-excerpt: "Crea Programaciones para mostrar tu contenido en el momento y lugar adecuados"
-keywords: "agregar una programación, programación siempre, programación personalizada, tiempo relativo, vista de calendario, vista de cuadrícula, vista de agenda"
+excerpt: "Crea Programacions per mostrar el teu contingut en el moment i lloc adequats"
+keywords: "afegir una programació, programació sempre, programació personalitzada, temps relatiu, vista de calendari, vista de quadrícula, vista d'agenda"
 ---
 
-# Programación Simple
+# Programació Simple
 
-[[PRODUCTNAME]] tiene una variedad de herramientas de programación para entregar el contenido correcto en la ubicación correcta en el momento correcto.
+[[PRODUCTNAME]] té una varietat d'eines de programació per lliurar el contingut correcte en la ubicació correcta en el moment correcte.
 
-Todo el contenido que se mostrará en Pantallas autorizadas debe incluirse en una Programación. Las Pantallas comprueban periódicamente el nuevo contenido programado y descargarán cualquier artículo nuevo con antelación para la reproducción, listo para ser mostrado.
+Tot el contingut que es mostrará en Pantalles autoritzades ha d'incloure's en una Programació. Les Pantalles comproven periòdicament el nou contingut programat i descarregaran qualsevol article nou amb antelació per a la reproducció, llest per ser mostrat.
 
-Es posible que tengas un Diseño creado por un miembro de tu equipo, para compartir un anuncio importante dentro de una empresa, que ahora está Publicado y listo para ser mostrado en Pantallas.
+És possible que tinguis un Disseny creat per un membre del teu equip, per compartir un anunci important dins d'una empresa, que ara està Publicat i llest per ser mostrat en Pantalles.
 
 {nonwhite} 
 
-## Vídeo Explicativo
+## Vídeo Explicatiu
 
 {video}QmAfUsSEOAk|how_to_simple_scheduling.png{/video}
 {/nonwhite}
 
-## Creando una Programación
+## Creant una Programació
 
-- Haz clic en **Programación** desde el menú principal del CMS.
-- Haz clic en el botón **Añadir Evento**.
+- Fes clic en **Programació** des del menú principal del CMS.
+- Fes clic al botó **Afegir Event**.
 
-Completa los campos en el formulario **Programar Evento**:
+Completa els camps en el formulari **Programar Event**:
 
-- Dale un **Nombre** al evento para una identificación más fácil en el CMS.
-- Usa el menú desplegable **Tipo de Evento** para seleccionar el tipo de Evento a Programar. Para este ejemplo, selecciona **Diseño**.
-- Selecciona en qué **Pantallas** mostrar el Diseño.
-- Desde **Partición del Día**, elige **Siempre** para mostrar el Diseño en Pantallas constantemente o selecciona **Personalizado** para establecer fechas/horas de inicio y fin específicas.
-- Selecciona la opción **Usar tiempo Relativo** si el Diseño debe mostrarse inmediatamente y proporciona cuánto tiempo debe permanecer mostrándose en Pantallas proporcionando horas y minutos.
-- Usa el menú desplegable para seleccionar el **Diseño** a mostrar.
-- Haz clic en **Guardar.**
+- Dóna-li un **Nom** a l'event per a una identificació més fàcil en el CMS.
+- Usa el menú desplegable **Tipus d'Event** per seleccionar el tipus d'Event a Programar. Per a aquest exemple, selecciona **Disseny**.
+- Selecciona en quines **Pantalles** mostrar el Disseny.
+- Des de **Partició del Dia**, tria **Sempre** per mostrar el Disseny en Pantalles constantment o selecciona **Personalitzat** per establir dates/hores d'inici i fi específiques.
+- Selecciona l'opció **Usar temps Relatiu** si el Disseny s'ha de mostrar immediatament i proporciona quant de temps ha de romandre mostrant-se en Pantalles proporcionant hores i minuts.
+- Usa el menú desplegable per seleccionar el **Disseny** a mostrar.
+- Fes clic en **Guardar.**
 
-El CMS ahora actualizará un cambio de Programación y mostrará el Diseño en Pantallas durante el tiempo especificado.
+El CMS ara actualitzarà un canvi de Programació i mostrarà el Disseny en Pantalles durant el temps especificat.
 
-El Evento Programado se puede ver/editar desde las vistas de cuadrícula y Calendario de la Programación.
+L'Event Programat es pot veure/editar des de les vistes de quadrícula i Calendari de la Programació.
 
-## Preguntas Frecuentes
+## Preguntes Freqüents
 
-***¿Puedo crear Programaciones desde otras partes del CMS?***
+***Puc crear Programacions des d'altres parts del CMS?***
 
-Sí, el formulario de Programar Evento está disponible desde el menú de fila para Diseños, Campañas, Listas de Reproducción y la cuadrícula de Multimedia para Imágenes y Vídeos. Una vez que un Diseño se ha publicado, también se puede Programar directamente desde el Editor de Diseños.
+Sí, el formulari de Programar Event està disponible des del menú de fila per a Dissenys, Campanyes, Llistes de Reproducció i la quadrícula de Multimèdia per a Imatges i Vídeos. Un cop que un Disseny s'ha publicat, també es pot Programar directament des de l'Editor de Dissenys.
 
-***¿Cómo elimino un Evento Siempre de la Programación?***
+***Com elimino un Event Sempre de la Programació?***
 
-Desde la Programación, usa el menú de fila para el Evento en la vista de Cuadrícula y selecciona Eliminar, o haz clic en el icono del Evento desde el Calendario para abrir el formulario Editar Evento y Eliminar.
+Des de la Programació, usa el menú de fila per a l'Event en la vista de Quadrícula i selecciona Eliminar, o fes clic a la icona de l'Event des del Calendari per obrir el formulari Editar Event i Eliminar.
 
-***¿Cómo puedo ver qué se mostrará en una Pantalla en un punto específico en el tiempo?***
+***Com puc veure què es mostrarà en una Pantalla en un punt específic en el temps?***
 
-Usa Agenda desde el filtro de rango para ver una representación precisa de qué Diseños/Campañas se mostrarán en una Pantalla seleccionada. Usa el control deslizante para identificar la hora exacta del día para ver.
+Usa Agenda des del filtre de rang per veure una representació precisa de quins Dissenys/Campanyes es mostraran en una Pantalla seleccionada. Usa el control lliscant per identificar l'hora exacta del dia per veure.

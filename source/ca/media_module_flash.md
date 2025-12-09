@@ -1,33 +1,33 @@
 ---
 toc: "widgets"
 minHeadingLevel: 2
-excerpt: "Sube archivos SWF a la Biblioteca"
+excerpt: "Puja fitxers SWF a la Llibreria"
 ---
 
 # Flash
 
-Añade archivos SWF para incluir en tus Diseños y Listas de Reproducción desde la [Búsqueda en la Biblioteca](layouts_editor_using_library_search).
+Afegeix fitxers SWF per incloure en els teus Dissenys i Llistes de Reproducció des de la [Cerca a la Llibreria](layouts_editor_using_library_search.html).
 
-Usando la búsqueda de 'otros medios', usa el menú desplegable **Tipo** para seleccionar **Flash**.
+Usant la cerca d''altres mitjans', usa el menú desplegable **Tipus** per seleccionar **Flash**.
 
 {feat}Adobe Flash|v4{/feat}
 
 {version}
-**IMPORTANTE:** Como Adobe ya no admite Flash, se eliminará gradualmente durante un período de tiempo. Con el desarrollo y soporte descontinuado para esta aplicación, el Módulo Flash ya no es compatible en Android. Después de pruebas extensas, se encontró que las inestabilidades en el Reproductor podrían causar que el Reproductor se cierre. Si aún eliges ejecutar a través del Módulo Flash o en sitios web incrustados, se renderizará usando la aplicación Flash si está disponible. Sin embargo, si tienes problemas de estabilidad con tu dispositivo, esto puede deberse a la ejecución de contenido Flash.
+**IMPORTANT:** Com Adobe ja no admet Flash, s'eliminarà gradualment durant un període de temps. Amb el desenvolupament i suport descontinuat per a aquesta aplicació, el Mòdul Flash ja no és compatible en Android. Després de proves extensives, es va trobar que les inestabilitats en el Reproductor podrien causar que el Reproductor es tanqui. Si encara tries executar a través del Mòdul Flash o en llocs web incrustats, es renderitzarà usant l'aplicació Flash si està disponible. No obstant això, si tens problemes d'estabilitat amb el teu dispositiu, això pot deure's a l'execució de contingut Flash.
 
-Aunque los Reproductores aún pueden reproducir flash en este momento actual, las actualizaciones de sistemas operativos y otros componentes de terceros, como el navegador, pueden hacer que los archivos Flash no se puedan reproducir.
+Encara que els Reproductors encara poden reproduir flash en aquest moment actual, les actualitzacions de sistemes operatius i altres components de tercers, com el navegador, poden fer que els fitxers Flash no es puguin reproduir.
 {/version}
 
 {cloud}
-Este Módulo está deshabilitado por defecto para clientes **Alojados en Xibo Cloud**.
+Aquest Mòdul està deshabilitat per defecte per a clients **Allotjats en Xibo Cloud**.
 {/cloud}
 
-## Descripción General
+## Descripció General
 
-- [Sube](media_library.html#content-add-media-upload) nuevos archivos SWF directamente a Listas de Reproducción/Diseños desde la Búsqueda en la Biblioteca.
-- Los archivos subidos directamente a Listas de Reproducción y Diseños se guardan automáticamente en la [Biblioteca](media_library.html) para su reutilización.
-- Los archivos SWF también pueden subirse por adelantado a la Biblioteca.
-- Establece [tiempos de inicio y fin](media_playlists.html#content-widget-expiry-dates) para archivos SWF subidos directamente a una Lista de Reproducción.
-- Guarda archivos SWF en Carpetas al subir, para controlar fácilmente el acceso a los Usuarios.
+- [Puja](media_library.html#content-add-media-upload) nous fitxers SWF directament a Llistes de Reproducció/Dissenys des de la Cerca a la Llibreria.
+- Els fitxers pujats directament a Llistes de Reproducció i Dissenys es guarden automàticament a la [Llibreria](media_library.html) per a la seva reutilització.
+- Els fitxers SWF també poden pujar-se per endavant a la Llibreria.
+- Estableix [hores d'inici i fi](media_playlists.html#content-widget-expiry-dates) per a fitxers SWF pujats directament a una Llista de Reproducció.
+- Guarda fitxers SWF en Carpetes al pujar, per controlar fàcilment l'accés als Usuaris.
 
 ![Flash](img/v4_media_module_flash.png)

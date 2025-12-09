@@ -1,23 +1,23 @@
 ---
 toc: "widgets"
 minHeadingLevel: 2
-excerpt: "Sube un Paquete HTML completo para ser distribuido a los Reproductores"
+excerpt: "Puja un Paquet HTML complet per ser distribuït als Reproductors"
 ---
 
-# Paquete HTML
+# Paquet HTML
 
-Añade un Paquete HTML completo en tus Diseños y Listas de Reproducción desde la [Búsqueda en la Biblioteca](layouts_editor_library_search.html).
+Afegeix un Paquet HTML complet en els teus Dissenys i Llistes de Reproducció des de la [Cerca a la Llibreria](layouts_editor_library_search.html).
 
-Usando la búsqueda de 'otros medios', usa el menú desplegable **Tipo** para seleccionar **Paquete HTML**.
+Usant la cerca d''altres mitjans', usa el menú desplegable **Tipus** per seleccionar **Paquet HTML**.
 
 {feat}HTML Package|v4{/feat}
 
-## Descripción General
+## Descripció General
 
-- [Sube](media_library.html#content-add-media-upload) nuevos archivos directamente a Listas de Reproducción/Diseños desde la Búsqueda en la Biblioteca.
-- Los archivos subidos directamente a Listas de Reproducción y Diseños se guardan automáticamente en la [Biblioteca](media_library.html) para su reutilización.
-- Los archivos HTML también pueden subirse por adelantado a la Biblioteca.
-- Establece [tiempos de inicio y fin](media_playlists.html#content-widget-expiry-dates) para archivos HTML subidos directamente a una Lista de Reproducción.
-- Guarda archivos HTML en Carpetas al subir, para controlar fácilmente el acceso a los Usuarios.
+- [Puja](media_library.html#content-add-media-upload) nous fitxers directament a Llistes de Reproducció/Dissenys des de la Cerca a la Llibreria.
+- Els fitxers pujats directament a Llistes de Reproducció i Dissenys es guarden automàticament a la [Llibreria](media_library.html) per a la seva reutilització.
+- Els fitxers HTML també poden pujar-se per endavant a la Llibreria.
+- Estableix [hores d'inici i fi](media_playlists.html#content-widget-expiry-dates) per a fitxers HTML pujats directament a una Llista de Reproducció.
+- Guarda fitxers HTML en Carpetes al pujar, per controlar fàcilment l'accés als Usuaris.
 
 ![HTML Package](img/v4_media_module_htmlpackage.png)

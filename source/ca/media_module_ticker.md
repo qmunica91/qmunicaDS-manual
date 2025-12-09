@@ -19,7 +19,7 @@ Els Elements estan disponibles per selecció al afegir un Widget Ticker RSS a un
 
 ![Ticker Elements](img/v4_media_module_ticker_elements.png)
 
-Cada Element té un conjunt d'opcions de configuració en el Panell de Propietats. S'ha de proporcionar una URL per ser usada com la font de dades des de la pestanya **Configurar** per a cada Element usat en el Disseny. Controla com els articles han de ciclar-se especificant una Ranura de Dades per usar per a cadascun dels Elements afegits. Els Elements de Dades poden complementar-se encara més afegint Elements Globals per afegir formes i text que es poden posar en un Grup d'Elements per a una configuració i posicionament més fàcils.
+Cada Element té un conjunt d'opcions de configuració en el Panell de Propietats. S'ha de proporcionar una URL per ser usada com la font de dades des de la pestanya **Configurar** per a cada Element usat en el Disseny. Controla com els articles han de ciclar-se especificant un Espai de Dades per usar per a cadascun dels Elements afegits. Els Elements de Dades poden complementar-se encara més afegint Elements Globals per afegir formes i text que es poden posar en un Grup d'Elements per a una configuració i posicionament més fàcils.
 
 ## Plantilles Estàtiques de DataSet
 

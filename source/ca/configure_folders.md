@@ -3,111 +3,111 @@ toc: "configure"
 maxHeadingLevel: 3
 minHeadingLevel: 2
 alias: "tour_folders"
-excerpt: "Crea y Gestiona Carpetas para organizar y controlar fácilmente objetos de Usuario"
-keywords: "mover y fusionar carpetas, gestión de carpetas, carpetas de inicio, compartir conteniendo de carpeta, forzar carpeta"
+excerpt: "Crea i Gestiona Carpetes per organitzar i controlar fàcilment objectes d'Usuari"
+keywords: "moure i fusionar carpetes, gestió de carpetes, carpetes d'inici, compartir contingut de carpeta, forçar carpeta"
 ---
 
-# Carpetas
+# Carpetes
 
-Las Carpetas se usan en todo el CMS y proporcionan una excelente manera de organizar y localizar fácilmente elementos de usuario dentro del CMS. Además, las Carpetas pueden tener opciones de visualización, edición y eliminación aplicadas que se aplicarán a todos los elementos guardados en la Carpeta, convirtiéndolo en una forma eficiente de controlar permisos de Usuario/Grupo de Usuarios para elementos de Usuario.
+Les Carpetes s'usen en tot el CMS i proporcionen una manera excel·lent d'organitzar i localitzar fàcilment elements d'usuari dins del CMS. A més, les Carpetes poden tenir opcions de visualització, edició i eliminació aplicades que s'aplicaran a tots els elements guardats en la Carpeta, convertint-lo en una forma eficient de controlar permisos d'Usuari/Grup d'Usuaris per a elements d'Usuari.
 
-Se anima a los Administradores a asignar Grupos de Usuarios a sus Usuarios, y luego usar opciones de Compartir Carpeta para dar a estos Usuarios acceso apropiado al contenido de cada uno. Las Carpetas se pueden asignar a nuevos Usuarios desde el asistente de incorporación para asegurar que estén listos desde el principio.
+Es recomana als Administradors assignar Grups d'Usuaris als seus Usuaris, i després usar opcions de Compartir Carpeta per donar a aquests Usuaris accés apropiat al contingut de cadascun. Les Carpetes es poden assignar a nous Usuaris des de l'assistent d'incorporació per assegurar que estiguin llestos des del principi.
 
-Las Carpetas se gestionan desde la sección de Administración del menú principal del CMS donde los administradores pueden ver información detallada incluyendo con quién se ha compartido la Carpeta y un desglose de su contenido.
+Les Carpetes es gestionen des de la secció d'Administració del menú principal del CMS on els administradors poden veure informació detallada incloent amb qui s'ha compartit la Carpeta i un desglossament del seu contingut.
 
 {nonwhite}
 
-## Vídeo explicativo
+## Vídeo explicatiu
 
 {video}kq0vR4FZuAM|how_to_managing_folders.png{/video}
 {/nonwhite}
 
-### Creando Carpetas
+### Creant Carpetes
 
-Solo los administradores pueden crear **Carpetas** bajo la **Carpeta Raíz**.
+Només els administradors poden crear **Carpetes** sota la **Carpeta Arrel**.
 
-- Haz clic derecho en la **Carpeta Raíz** y selecciona **Crear** para añadir una nueva Carpeta al árbol.
+- Fes clic dret en la **Carpeta Arrel** i selecciona **Crear** per afegir una nova Carpeta a l'arbre.
 
-- Más opciones están disponibles desde el menú contextual haciendo clic derecho en una Carpeta.
+- Més opcions estan disponibles des del menú contextual fent clic dret en una Carpeta.
 
-- Configura opciones de **Compartir** Ver, Editar y Eliminar para aplicar a Usuarios/Grupos de Usuarios para Carpetas individuales.
+- Configura opcions de **Compartir** Veure, Editar i Eliminar per aplicar a Usuaris/Grups d'Usuaris per a Carpetes individuals.
 
-Una vez establecido, todos los elementos contenidos o movidos a esa Carpeta heredarán las opciones aplicadas.
-
-{tip}
-Solo los Administradores pueden establecer opciones de Compartir para Carpetas.
-Todos los elementos de un artículo que necesitan ser compartidos deben moverse también a la Carpeta. Esto incluye archivos de Medios contenidos en Diseños, y Diseños dentro de Campañas, como ejemplo, si los Usuarios también requieren acceso a esos.
-{/tip}
-
-Se puede otorgar acceso a los Usuarios a través de la funcionalidad de **Característica**, para crear subcarpetas bajo carpetas principales a las que se les ha dado acceso.
-
-Las Subcarpetas añadidas a una Carpeta heredarán cualquier opción de Compartir aplicada de la Carpeta Principal.
-
-### Carpeta de Inicio
-
-Asigna una Carpeta de Inicio a Usuarios existentes:
-
-- Ve a **Usuarios** bajo la sección **Administración** del menú principal del CMS.
-- Usa el menú de fila y selecciona **Establecer Carpeta de Inicio**.
-- Selecciona una Carpeta para usar, o haz clic derecho para crear una nueva Carpeta.
+Un cop establert, tots els elements continguts o moguts a aquesta Carpeta heretaran les opcions aplicades.
 
 {tip}
-Si deseas que el Administrador del Grupo tenga la capacidad de establecer Carpeta de Inicio para Usuarios, ¡asegúrate de que tengan la **Característica** apropiada habilitada!
+Només els Administradors poden establir opcions de Compartir per a Carpetes.
+Tots els elements d'un article que necessiten ser compartits han de moure's també a la Carpeta. Això inclou fitxers de Mitjans continguts en Dissenys, i Dissenys dins de Campanyes, com a exemple, si els Usuaris també requereixen accés a aquests.
 {/tip}
 
-Si no se selecciona una Carpeta, el nuevo contenido se guardará automáticamente en la ubicación de Carpeta de Inicio predeterminada de un Usuario.
+Es pot atorgar accés als Usuaris a través de la funcionalitat de **Característica**, per crear subcarpetes sota carpetes principals a les quals se'ls ha donat accés.
 
-### Forzar Guardado en una Carpeta
+Les Subcarpetes afegides a una Carpeta heretaran qualsevol opció de Compartir aplicada de la Carpeta Principal.
 
-Los Administradores pueden prevenir que los Usuarios guarden en la Carpeta Raíz y en su lugar forzarlos a seleccionar una Carpeta antes de guardar deshabilitando el uso de la Carpeta Raíz como predeterminado:
+### Carpeta d'Inici
 
-- Navega a **Ajustes** bajo la sección **Administración** del menú principal del CMS.
-- Haz clic en la pestaña **Compartir**.
+Assigna una Carpeta d'Inici a Usuaris existents:
 
-- Desmarca la opción **Permitir guardar en la carpeta raíz**.
-- Haz clic en el botón **Guardar** en la parte inferior.
+- Ves a **Usuaris** sota la secció **Administració** del menú principal del CMS.
+- Usa el menú de fila i selecciona **Establir Carpeta d'Inici**.
+- Selecciona una Carpeta per usar, o fes clic dret per crear una nova Carpeta.
 
-Una vez configurado un Usuario ***debe*** seleccionar una Carpeta nombrada.
+{tip}
+Si desitges que l'Administrador del Grup tingui la capacitat d'establir Carpeta d'Inici per a Usuaris, ¡assegura't que tinguin la **Característica** apropiada habilitada!
+{/tip}
 
-### Mover Carpeta
+Si no se selecciona una Carpeta, el nou contingut es guardarà automàticament en la ubicació de Carpeta d'Inici predeterminada d'un Usuari.
 
-Las Carpetas se pueden mover a otra ubicación de Carpeta y añadirse como una Subcarpeta usando la opción **Mover Carpeta** desde el menú contextual para una Carpeta.
+### Forçar Guardat en una Carpeta
 
-La Carpeta y cualquier subcarpeta contenida se moverán como una nueva subcarpeta dentro de la nueva ubicación de Carpeta manteniendo la estructura de Carpeta original.
+Els Administradors poden prevenir que els Usuaris guardin en la Carpeta Arrel i en el seu lloc forçar-los a seleccionar una Carpeta abans de guardar deshabilitant l'ús de la Carpeta Arrel com predeterminat:
 
-Mover una Carpeta que no tiene opciones de Compartir establecidas, heredará cualquier opción de **Compartir** aplicada de la Carpeta de destino.
+- Navega a **Configuració** sota la secció **Administració** del menú principal del CMS.
+- Fes clic en la pestanya **Compartir**.
 
-También puedes seleccionar la opción **Fusionar** para añadir el contenido de la Carpeta original a la ubicación seleccionada, siendo la Carpeta original eliminada del árbol de Carpetas.
+- Desmarca l'opció **Permetre guardar en la carpeta arrel**.
+- Fes clic al botó **Guardar** a la part inferior.
 
-## Gestión de Carpetas
+Un cop configurat un Usuari ***ha de*** seleccionar una Carpeta nomenada.
 
-Los Administradores pueden ver, crear y gestionar todas las Carpetas del CMS desde la página de Carpetas bajo la sección de Administración del menú principal del CMS.
+### Moure Carpeta
 
-Esta página de gestión mostrará las Carpetas que han sido compartidas con Usuarios así como el contenido de la carpeta. Al ver subcarpetas desde aquí, solo se mostrarán las opciones de compartir asignadas directamente, las opciones heredadas no se mostrarán.
+Les Carpetes es poden moure a una altra ubicació de Carpeta i afegir-se com una Subcarpeta usant l'opció **Moure Carpeta** des del menú contextual per a una Carpeta.
 
-Como solo las carpetas vacías pueden ser eliminadas, mueve, fusiona o elimina contenidos antes de eliminar la carpeta.
+La Carpeta i qualsevol subcarpeta continguda es mouran com una nova subcarpeta dins de la nova ubicació de Carpeta mantenint l'estructura de Carpeta original.
 
-## Lectura Adicional
+Moure una Carpeta que no té opcions de Compartir establertes, heretarà qualsevol opció de **Compartir** aplicada de la Carpeta de destí.
 
-[Gestionando Etiquetas](configure_tags.html)
+També pots seleccionar l'opció **Fusionar** per afegir el contingut de la Carpeta original a la ubicació seleccionada, sent la Carpeta original eliminada de l'arbre de Carpetes.
 
-## Preguntas Frecuentes
+## Gestió de Carpetes
 
-***¿Dónde puedo encontrar el conjunto de Características para Carpetas para configurar para Usuarios/Grupos de Usuarios?***
+Els Administradors poden veure, crear i gestionar totes les Carpetes del CMS des de la pàgina de Carpetes sota la secció d'Administració del menú principal del CMS.
 
-Las Características se aplican a un Usuario/Grupo de Usuarios usando el menú de fila para un Usuario/Grupo de Usuarios seleccionado.
+Aquesta pàgina de gestió mostrarà les Carpetes que han estat compartides amb Usuaris així com el contingut de la carpeta. Al veure subcarpetes des d'aquí, només es mostraran les opcions de compartir assignades directament, les opcions heretades no es mostraran.
 
-***¿Qué pasos debo seguir para permitir a los Usuarios la capacidad de Crear sus propias Carpetas?***
+Com només les carpetes buides poden ser eliminades, mou, fusiona o elimina continguts abans d'eliminar la carpeta.
 
-1. Habilita **Permitir a los usuarios crear Sub-Carpetas....** desde la pestaña Contenido del conjunto de **Característica de Carpetas**.
-2. Habilita **Ver** desde las **opciones de Compartir** para la(s) carpeta(s) principal(es) que pueden tener subcarpetas creadas bajo ellas por el Usuario/Grupo de Usuarios.
+## Lectura Addicional
 
-***¿Qué pasos debo seguir para permitir a los Usuarios acceso para renombrar Carpetas dentro del menú?***
+[Gestionant Etiquetes](configure_tags.html)
 
-1. Habilita **Renombrar y Eliminar carpetas existentes** desde la pestaña Contenido en el conjunto de **Característica de Carpetas**.
-2. Habilita **Editar** desde las **opciones de Compartir** para la(s) carpeta(s) que pueden ser renombradas por el Usuario/Grupo de Usuarios.
+## Preguntes Freqüents
 
-***¿Qué pasos debo seguir para permitir a los Usuarios acceso para eliminar Carpetas del menú?***
+***On puc trobar el conjunt de Característiques per a Carpetes per configurar per a Usuaris/Grups d'Usuaris?***
 
-1. Habilita **Renombrar y Eliminar Carpetas existentes** desde la pestaña Contenido en el conjunto de **Característica de Carpetas**.
-2. Habilita **Eliminar** desde las **opciones de Compartir** para la(s) carpeta(s) que pueden ser eliminadas por el Usuario/Grupo de Usuarios.
+Les Característiques s'apliquen a un Usuari/Grup d'Usuaris usant el menú de fila per a un Usuari/Grup d'Usuaris seleccionat.
+
+***Quins passos he de seguir per permetre als Usuaris la capacitat de Crear les seves pròpies Carpetes?***
+
+1. Habilita **Permetre als usuaris crear Sub-Carpetes....** des de la pestanya Contingut del conjunt de **Característica de Carpetes**.
+2. Habilita **Veure** des de les **opcions de Compartir** per a la(s) carpeta(s) principal(s) que poden tenir subcarpetes creades sota elles per l'Usuari/Grup d'Usuaris.
+
+***Quins passos he de seguir per permetre als Usuaris accés per reanomenar Carpetes dins del menú?***
+
+1. Habilita **Reanomenar i Eliminar carpetes existents** des de la pestanya Contingut en el conjunt de **Característica de Carpetes**.
+2. Habilita **Editar** des de les **opcions de Compartir** per a la(s) carpeta(s) que poden ser reanomenades per l'Usuari/Grup d'Usuaris.
+
+***Quins passos he de seguir per permetre als Usuaris accés per eliminar Carpetes del menú?***
+
+1. Habilita **Reanomenar i Eliminar Carpetes existents** des de la pestanya Contingut en el conjunt de **Característica de Carpetes**.
+2. Habilita **Eliminar** des de les **opcions de Compartir** per a la(s) carpeta(s) que poden ser eliminades per l'Usuari/Grup d'Usuaris.
