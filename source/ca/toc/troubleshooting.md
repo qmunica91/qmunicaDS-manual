@@ -1,1 +1,1 @@
-- [Resolució de Problemas](troubleshooting.html)
+- [Resolució de Problemes](troubleshooting.html)

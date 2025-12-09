@@ -38,14 +38,14 @@
         var currentFontSize = parseFloat(localStorage.getItem('fontSize')) || 100;
         // Default relative to 16px is 100% (16px). Range 100-250%.
 
-        // Apply to main content only
-        $('.col-md-9[role="main"]').css('font-size', currentFontSize + '%');
+        // Apply to the wrapper containing Sidebar, Main Content, and TOC
+        $('.ss_body').css('font-size', currentFontSize + '%');
         $('#fontSlider').val(currentFontSize); // Initialize slider
 
         $('#fontSlider').on('input change', function () {
             var val = $(this).val();
-            // Apply only to the main content column so navbar/sidebar don't break
-            $('.col-md-9[role="main"]').css('font-size', val + '%');
+            // Apply to .ss_body so sidebars and content scale together
+            $('.ss_body').css('font-size', val + '%');
             localStorage.setItem('fontSize', val);
         });
 
