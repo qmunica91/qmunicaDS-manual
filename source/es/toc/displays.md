@@ -1,0 +1,7 @@
+- [Pantallas](displays.html)
+- [Configuración de Pantalla](displays_configuration.html)
+- [Ajustes de Pantalla](displays_settings.html)
+- [Grupos de Pantallas](displays_groups.html)
+- [Grupos de Sincronización](displays_sync_groups.html)
+- [Informes](displays_metrics.html)
+- [Funcionalidad de Comandos](displays_command_functionality.html)

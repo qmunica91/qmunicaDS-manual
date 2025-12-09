@@ -1,0 +1,85 @@
+<footer class="ss_footer" role="contentinfo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; 2025 <strong>Qmunica</strong>. Todos los derechos reservados.</p>
+                <p class="small">Documentación versión [[PRODUCTVERSION]]</p>
+            </div>
+            <div class="col-md-6 text-right">
+                <p class="ss_languages">[[LANGS]]</p>
+            </div>
+        </div>
+
+        <div class="ss_back_to_top">
+            <span class="glyphicon glyphicon-chevron-up"></span> Subir
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/search_index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".ss_body img").addClass("img-thumbnail");
+        $(".ss_body table").addClass("table table-striped");
+
+        // Set the selected page based on the TOC name
+        $("#side-nav a").each(function () {
+            // Note: Data attributes not usually set on body in this implementation, but keeping legacy logic just in case
+        });
+
+        $(".ss_back_to_top").click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 800);
+        });
+
+        // Font Size Control (Slider)
+        var currentFontSize = parseFloat(localStorage.getItem('fontSize')) || 150;
+        $('body').css('font-size', currentFontSize + '%');
+        $('#fontSlider').val(currentFontSize); // Initialize slider
+
+        $('#fontSlider').on('input change', function () {
+            var val = $(this).val();
+            $('body').css('font-size', val + '%');
+            localStorage.setItem('fontSize', val);
+        });
+
+        // Prevent dropdown closing when interacting with slider
+        $('.font-settings-dropdown .dropdown-menu').click(function (e) {
+            e.stopPropagation();
+        });
+
+        // Search Logic
+        $('#searchInput').on('keypress', function (e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                var query = $(this).val().toLowerCase();
+                if (query.length < 3) return;
+
+                var results = searchData.filter(function (item) {
+                    return item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query);
+                });
+
+                var html = '';
+                if (results.length > 0) {
+                    html += '<ul class="list-group">';
+                    results.forEach(function (item) {
+                        // Highlight snippet
+                        var snippet = item.content.substring(0, 200) + '...';
+                        html += '<li class="list-group-item"><a href="' + item.url + '"><h4>' + item.title + '</h4></a><p>' + snippet + '</p></li>';
+                    });
+                    html += '</ul>';
+                } else {
+                    html = '<div class="alert alert-warning">No se encontraron resultados para "' + query + '"</div>';
+                }
+
+                $('#searchResults').html(html);
+                $('#searchModal').modal('show');
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+[
+  {
+    "title": "Primeros Pasos",
+    "href": "index.html",
+    "containsToc": [
+      "getting_started"
+    ]
+  },
+  {
+    "title": "Diseños",
+    "href": "layouts_editor.html",
+    "containsToc": [
+      "layouts"
+    ]
+  },
+  {
+    "title": "Multimedia",
+    "href": "media_library.html",
+    "containsToc": [
+      "media"
+    ]
+  },
+  {
+    "title": "Módulos",
+    "href": "media_modules.html",
+    "containsToc": [
+      "widgets"
+    ]
+  },
+  {
+    "title": "Programación",
+    "href": "scheduling_events.html",
+    "containsToc": [
+      "scheduling"
+    ]
+  },
+  {
+    "title": "Pantallas",
+    "href": "displays.html",
+    "containsToc": [
+      "displays"
+    ]
+  },
+  {
+    "title": "Usuarios",
+    "href": "users_administration.html",
+    "containsToc": [
+      "users"
+    ]
+  },
+  {
+    "title": "Configuración",
+    "href": "configure_cms_settings.html",
+    "containsToc": [
+      "configure"
+    ]
+  },
+  {
+    "title": "Resolución de Problemas",
+    "href": "troubleshooting.html",
+    "containsToc": [
+      "troubleshooting"
+    ]
+  }
+]
