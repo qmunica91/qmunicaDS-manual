@@ -95,6 +95,388 @@
         });
     });
 </script>
+<!-- Qmunica AI Assistant Sidebar -->
+<style>
+    :root {
+        --qmunica-blue: #007bff;
+        --qmunica-dark: #2c3e50;
+        --qmunica-light: #f8f9fa;
+        --sidebar-width: 350px;
+    }
+
+    body.chat-open {
+        margin-right: var(--sidebar-width);
+        transition: margin-right 0.3s ease;
+    }
+
+    #qmunica-ai-sidebar {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        /* Hidden by default */
+        width: var(--sidebar-width);
+        height: 100vh;
+        background: white;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        transition: right 0.3s ease;
+        border-left: 1px solid #eee;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    #qmunica-ai-sidebar.open {
+        right: 0;
+    }
+
+    /* Toggle Button (Floating) */
+    #qmunica-ai-toggle {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--qmunica-blue);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        border: none;
+        z-index: 10001;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        transition: transform 0.2s, right 0.3s ease;
+        animation: pulse-glow 3s infinite;
+    }
+
+    @keyframes pulse-glow {
+        0% {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        50% {
+            box-shadow: 0 4px 25px rgba(0, 123, 255, 0.6);
+        }
+
+        100% {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    #qmunica-ai-toggle:hover {
+        transform: scale(1.1);
+        animation: none;
+    }
+
+    #qmunica-ai-toggle.sidebar-active {
+        right: 370px;
+        /* Move with sidebar */
+        background: var(--qmunica-dark);
+        animation: none;
+    }
+
+    /* CTA Tooltip ("The Wink") */
+    .ai-cta-tooltip {
+        position: fixed;
+        bottom: 45px;
+        /* Center-ish with button */
+        right: 100px;
+        background: white;
+        color: #333;
+        padding: 10px 15px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 10000;
+        pointer-events: none;
+        /* Let clicks pass through if needed, though it's beside */
+        opacity: 0;
+        transform: translateX(20px);
+        animation: slideInFade 1s 1s forwards, float 3s 2s infinite ease-in-out;
+        max-width: 250px;
+        border: 1px solid #e1e1e1;
+    }
+
+    .ai-cta-tooltip::after {
+        content: '';
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 8px 0 8px 8px;
+        border-style: solid;
+        border-color: transparent transparent transparent white;
+    }
+
+    /* Close CTA when sidebar is open */
+    .sidebar-active~.ai-cta-tooltip {
+        display: none;
+    }
+
+    @keyframes slideInFade {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+
+    /* Header */
+    .ai-sidebar-header {
+        padding: 20px;
+        background: linear-gradient(135deg, var(--qmunica-blue), #0056b3);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .ai-sidebar-title h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .ai-sidebar-title small {
+        opacity: 0.8;
+        font-size: 12px;
+    }
+
+    .ai-close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    /* Messages Area */
+    .ai-messages-container {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        background: var(--qmunica-light);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .ai-message {
+        max-width: 90%;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        position: relative;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .ai-message.bot {
+        background: white;
+        color: #333;
+        align-self: flex-start;
+        border: 1px solid #e1e1e1;
+        border-top-left-radius: 2px;
+    }
+
+    .ai-message.user {
+        background: var(--qmunica-blue);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 2px;
+    }
+
+    .ai-avatar {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 5px;
+        display: block;
+        font-size: 20px;
+    }
+
+    /* Code blocks styles for bot responses */
+    .ai-message pre {
+        background: #2d2d2d;
+        color: #ccc;
+        padding: 10px;
+        border-radius: 6px;
+        overflow-x: auto;
+        margin-top: 5px;
+        font-size: 12px;
+    }
+
+    /* Input Area */
+    .ai-input-area {
+        padding: 20px;
+        background: white;
+        border-top: 1px solid #eee;
+        display: flex;
+        gap: 10px;
+    }
+
+    .ai-input-wrapper {
+        flex: 1;
+        position: relative;
+    }
+
+    .ai-input-area textarea {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        padding-right: 40px;
+        resize: none;
+        height: 45px;
+        /* Initial height */
+        max-height: 120px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    .ai-input-area textarea:focus {
+        border-color: var(--qmunica-blue);
+    }
+
+    .ai-send-btn {
+        background: var(--qmunica-blue);
+        color: white;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+
+    .ai-send-btn:hover {
+        background: #0056b3;
+    }
+
+    .ai-send-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 10px;
+        align-self: flex-start;
+        display: none;
+        /* Hidden by default */
+    }
+
+    .typing-dot {
+        width: 6px;
+        height: 6px;
+        background: #bbb;
+        border-radius: 50%;
+        animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .typing-dot:nth-child(1) {
+        animation-delay: -0.32s;
+    }
+
+    .typing-dot:nth-child(2) {
+        animation-delay: -0.16s;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        80%,
+        100% {
+            transform: scale(0);
+        }
+
+        40% {
+            transform: scale(1);
+        }
+    }
+</style>
+
+<div id="qmunica-ai-toggle" onclick="toggleSidebar()">
+    <span>✨</span>
+</div>
+
+<div id="qmunica-ai-sidebar">
+    <div class="ai-sidebar-header">
+        <div class="ai-sidebar-title">
+            <h3>Qmunica AI</h3>
+            <small>Asistente de Documentación Inteligente</small>
+        </div>
+        <button class="ai-close-btn" onclick="toggleSidebar()">✕</button>
+    </div>
+
+    <!-- N8n Hosted Chat Iframe -->
+    <div style="flex: 1; width: 100%; height: 100%; overflow: hidden; background: white;">
+        <iframe src="https://informes.qmunica.com/webhook/ed1de65e-3d53-43f8-a330-37f0bd028b35/chat"
+            style="width: 100%; height: 100%; border: none;" allow="microphone">
+        </iframe>
+    </div>
+
+</div>
+
+<script>
+    let sidebarOpen = false;
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('qmunica-ai-sidebar');
+        const toggleBtn = document.getElementById('qmunica-ai-toggle');
+        const tooltip = document.querySelector('.ai-cta-tooltip');
+
+        sidebarOpen = !sidebarOpen;
+
+        if (sidebarOpen) {
+            sidebar.classList.add('open');
+            toggleBtn.classList.add('sidebar-active');
+            toggleBtn.innerHTML = '✕';
+            if (tooltip) tooltip.style.display = 'none';
+
+            // Auto-focus iframe if possible (often blocked by browser security, but worth a try)
+        } else {
+            sidebar.classList.remove('open');
+            toggleBtn.classList.remove('sidebar-active');
+            toggleBtn.innerHTML = '✨';
+            if (tooltip) tooltip.style.display = 'block';
+        }
+    }
+</script>
 </body>
 
 </html>
