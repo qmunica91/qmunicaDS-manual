@@ -56,10 +56,11 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <div class="font-slider-container">
-                                    <span class="small">A</span>
-                                    <input type="range" min="100" max="250" value="150" class="font-range-slider"
-                                        id="fontSlider">
-                                    <span class="large">A</span>
+                                    <button class="btn btn-default btn-xs font-decrease" id="fontDec"><span
+                                            class="glyphicon glyphicon-minus"></span></button>
+                                    <span class="small" style="margin:0 5px;">A</span>
+                                    <button class="btn btn-default btn-xs font-increase" id="fontInc"><span
+                                            class="glyphicon glyphicon-plus"></span></button>
                                 </div>
                             </li>
                         </ul>
@@ -68,7 +69,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                             aria-expanded="false" title="Idioma">
-                            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                            <span style="font-weight:bold;">[[CURRENT_LANG_CODE]]</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="../es/[[CURRENT_FILENAME]]">Español</a></li>

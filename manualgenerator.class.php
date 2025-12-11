@@ -56,6 +56,7 @@ class ManualGenerator
     private $languageImages = [];
     private $visibilityConfig = [];
     private $parentMap = []; // Child -> Parent mapping
+    private $searchData = []; // Store search index per language
 
     public function __construct($productName, $productHome, $productSupportUrl, $productFaqUrl, $template = 'default', $buildMode = 'public')
     {
@@ -173,6 +174,21 @@ class ManualGenerator
             }
         }
 
+
+
+        // Write Search Index after processing all files
+        // We iterate gathered data: 'en' + others
+        foreach ($this->searchData as $langKey => $data) {
+            $jsDir = $this->outputPath . $langKey . '/js';
+            if (!is_dir($jsDir)) {
+                mkdir($jsDir, 0777, true);
+            }
+            $json = json_encode($data);
+            // Safety: ensure no JS break
+            file_put_contents($jsDir . '/search_index.js', 'var searchData = ' . $json . ';');
+            echo "Generated search index for $langKey" . PHP_EOL;
+        }
+
         echo PHP_EOL;
     }
 
@@ -269,12 +285,12 @@ class ManualGenerator
         // Look for headers in the page content and give them ID's based on their actual content.
         $pageContent = preg_replace_callback('#(<h1>)(.*)(</h1>)#i', function ($m) {
             $id = strtolower(str_replace(' ', '_', $m[2]));
-            return '<h1 id="' . $id . '">' . $m[2] . ' <a href="#' . $id . '" class="header-link"><span class="glyphicon glyphicon-link"></span></a></h1>';
+            return '<h1 id="' . $id . '">' . $m[2] . '</h1>';
         }, $pageContent);
 
         $pageContent = preg_replace_callback('#(<h2>)(.*)(</h2>)#i', function ($m) {
             $id = strtolower(str_replace(' ', '_', $m[2]));
-            return '<h2 id="' . $id . '">' . $m[2] . ' <a href="#' . $id . '" class="header-link"><span class="glyphicon glyphicon-link"></span></a></h2>';
+            return '<h2 id="' . $id . '">' . $m[2] . '</h2>';
         }, $pageContent);
 
         // Generate On-Page Navigation (H1, H2)
@@ -309,7 +325,19 @@ class ManualGenerator
         $string = str_replace('[[TOCNAME]]', $toc, $string);
         $string = str_replace('[[PAGE]]', $pageContent, $string);
         $string = str_replace('[[ONPAGENAV]]', $onPageNav, $string);
+
         $string = str_replace('[[CURRENT_FILENAME]]', $file . '.html', $string);
+        $string = str_replace('[[CURRENT_LANG_CODE]]', strtoupper($lang), $string);
+
+        // Add to Search Index (only if allowed)
+        // Clean content for search
+        $cleanContent = strip_tags($pageContent);
+        $cleanContent = preg_replace('/\s+/', ' ', $cleanContent); // Remove newlines/extra spaces
+        $this->searchData[$lang][] = [
+            'title' => $nav['title'] ?? ucfirst(str_replace('_', ' ', $file)),
+            'content' => substr($cleanContent, 0, 5000), // Limit size per page
+            'url' => $file . '.html'
+        ];
 
         // Navigation
         //  we want to put the appropriate TOC at the right place inside the navbar
@@ -318,14 +346,55 @@ class ManualGenerator
 
         // for each item in the menu, we want to render a navbar link
         foreach ($navigation as $nav) {
+            // Visibility Check for Menu Item
+            if (isset($nav['href'])) {
+                $navMd = str_replace('.html', '.md', $nav['href']);
+
+                // 1. Check direct config
+                $navVis = $this->visibilityConfig[$navMd] ?? 'public';
+                if ($navVis === 'draft')
+                    continue;
+                if ($this->buildMode === 'public' && $navVis === 'full')
+                    continue;
+
+                // 2. Check inherited config
+                // Optimization: If the item itself is blocked by inheritance, skip it.
+                // Note: buildParentMap() builds map based on Nav Structure.
+                // Ideally, a separate check, but checking inheritance is safer.
+                if ($this->checkInheritedVisibility($navMd) === 'blocked')
+                    continue;
+            }
             // Does this nav link hold the TOC for the current page?
             $tocString = '';
             $navToc = $nav['containsToc'][0];
             if (in_array($toc, $nav['containsToc'])) {
                 $navToc = $toc;
-                $tocString = self::getHtml(
-                    $this->processReplacements($this->file_get_contents_or_default($lang, 'toc/' . $toc . '.md'))
-                );
+                $tocRaw = $this->processReplacements($this->file_get_contents_or_default($lang, 'toc/' . $toc . '.md'));
+
+                // FILTER VISIBILITY: Remove lines pointing to blocked files
+                $tocLines = explode("\n", $tocRaw);
+                $filteredLines = [];
+                foreach ($tocLines as $line) {
+                    if (preg_match('/\[.*\]\((.*)\.html\)/', $line, $matches)) {
+                        $linkedFile = $matches[1] . '.md';
+                        // Check visibility
+                        $vis = $this->visibilityConfig[$linkedFile] ?? 'public';
+                        if ($vis === 'draft')
+                            continue;
+                        if ($this->buildMode === 'public' && $vis === 'full')
+                            continue;
+                        if ($this->checkInheritedVisibility($linkedFile) === 'blocked')
+                            continue;
+                    }
+                    $filteredLines[] = $line;
+                }
+                $tocRaw = implode("\n", $filteredLines);
+
+                // FORCE TIGHT LIST: Collapse multiple newlines to one.
+                // This converts "Item 1\n\nItem 2" (Loose) to "Item 1\nItem 2" (Tight).
+                $tocRaw = preg_replace('/(\r\n|\r|\n)+/', "\n", $tocRaw);
+
+                $tocString = self::getHtml($tocRaw);
 
                 // highlight the sub link in this toc
                 $document = new DOMDocument();

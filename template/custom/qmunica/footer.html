@@ -34,19 +34,30 @@
             $('html, body').animate({ scrollTop: 0 }, 800);
         });
 
-        // Font Size Control (Slider)
+        // Font Size Control (Buttons)
         var currentFontSize = parseFloat(localStorage.getItem('fontSize')) || 100;
-        // Default relative to 16px is 100% (16px). Range 100-250%.
 
-        // Apply to the wrapper containing Sidebar, Main Content, and TOC
-        $('.ss_body').css('font-size', currentFontSize + '%');
-        $('#fontSlider').val(currentFontSize); // Initialize slider
+        function setFontSize(size) {
+            // Clamp between 100 and 200
+            if (size < 100) size = 100;
+            if (size > 200) size = 200;
 
-        $('#fontSlider').on('input change', function () {
-            var val = $(this).val();
-            // Apply to .ss_body so sidebars and content scale together
-            $('.ss_body').css('font-size', val + '%');
-            localStorage.setItem('fontSize', val);
+            $('.ss_body').css('font-size', size + '%');
+            localStorage.setItem('fontSize', size);
+            currentFontSize = size;
+        }
+
+        // Initial set
+        setFontSize(currentFontSize);
+
+        $('#fontInc').click(function (e) {
+            e.preventDefault();
+            setFontSize(currentFontSize + 10);
+        });
+
+        $('#fontDec').click(function (e) {
+            e.preventDefault();
+            setFontSize(currentFontSize - 10);
         });
 
         // Prevent dropdown closing when interacting with slider
