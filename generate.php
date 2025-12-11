@@ -14,14 +14,21 @@ else
     include_once 'template/default/template.php';
 
 // Generates a complete manual.
+$buildMode = isset($argv[2]) ? $argv[2] : 'public';
+echo 'Build Mode: ' . $buildMode . PHP_EOL;
+
+// Generates a complete manual.
 $manual = new ManualGenerator(
     PRODUCT_NAME,
     PRODUCT_HOME,
     PRODUCT_SUPPORT_URL,
     PRODUCT_FAQ_URL,
-    $template);
+    $template,
+    $buildMode
+);
 
-$manual->build('', 'output/');
+$outputDir = 'output/' . $buildMode . '/';
+$manual->build('', $outputDir);
 
-// Tar up the images in `output/en/img`
-shell_exec('cd output; tar -czvf images.tar.gz en/img');
+// Tar up the images in `output/{mode}/en/img`
+shell_exec('cd output/' . $buildMode . '; tar -czvf images.tar.gz en/img');

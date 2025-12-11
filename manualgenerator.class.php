@@ -41,6 +41,7 @@ class ManualGenerator
     private $productHome;
     private $productSupportUrl;
     private $productFaqUrl;
+    private $buildMode;
 
     private $sourcePath;
     private $outputPath;
@@ -53,9 +54,19 @@ class ManualGenerator
      * @var array
      */
     private $languageImages = [];
+    private $visibilityConfig = [];
+    private $parentMap = []; // Child -> Parent mapping
 
-    public function __construct($productName, $productHome, $productSupportUrl, $productFaqUrl, $template = 'default')
+    public function __construct($productName, $productHome, $productSupportUrl, $productFaqUrl, $template = 'default', $buildMode = 'public')
     {
+        // Load visibility config
+        if (file_exists('visibility.json')) {
+            $this->visibilityConfig = json_decode(file_get_contents('visibility.json'), true);
+        }
+
+        // Build Parent Map for inheritance
+        $this->buildParentMap();
+
         // This should be updated with each release of the manual
         $this->productVersion = '4';
 
@@ -67,6 +78,7 @@ class ManualGenerator
         $this->whiteLabel = ($this->productName != 'Xibo');
 
         $this->templateName = $template;
+        $this->buildMode = $buildMode;
     }
 
     /**
@@ -143,7 +155,7 @@ class ManualGenerator
             $langsString .= ' | <a href="../' . $lang . '/index.html">' . $lang . '</a>';
 
             // Build an array of language specific images
-            $this->languageImages[$lang] = array_map(function($element) {
+            $this->languageImages[$lang] = array_map(function ($element) {
                 return basename($element);
             }, glob($this->sourcePath . 'source/' . $lang . '/img/*.*'));
         }
@@ -169,7 +181,7 @@ class ManualGenerator
         $headerLocation = $this->path('header.html');
         $footerLocation = $this->path('footer.html');
 
-        $this->template  = $this->processReplacements(file_get_contents($headerLocation));
+        $this->template = $this->processReplacements(file_get_contents($headerLocation));
         $this->template .= $this->processReplacements(file_get_contents($footerLocation));
     }
 
@@ -200,6 +212,42 @@ class ManualGenerator
             $meta = $frontMatter->parse($pageContent);
             $data = $meta->getData();
             $toc = $data['toc'] ?? '';
+
+            // Check Centralized Config (visibility.json)
+            $filename = $file . '.md';
+            $visibility = $this->visibilityConfig[$filename] ?? 'public'; // Default to public
+
+            // 0. Check Parent Visibility Inheritance
+            $inheritedStatus = $this->checkInheritedVisibility($filename);
+            if ($inheritedStatus === 'blocked') {
+                echo 'Skipped (Inherited Constraint)' . PHP_EOL;
+                return;
+            }
+
+            // 1. Check Draft
+            if ($visibility === 'draft') {
+                echo 'Skipped (Draft in JSON)' . PHP_EOL;
+                return;
+            }
+
+            // 2. Check Private/Full
+            if ($this->buildMode === 'public' && $visibility === 'full') {
+                echo 'Skipped (Private in JSON)' . PHP_EOL;
+                return;
+            }
+
+            // Fallback to Frontmatter (Legacy support)
+            // Check if published
+            if (isset($data['published']) && $data['published'] === false) {
+                echo 'Skipped (Draft in MD)' . PHP_EOL;
+                return;
+            }
+
+            // Check access level
+            if ($this->buildMode === 'public' && isset($data['access']) && $data['access'] === 'private') {
+                echo 'Skipped (Private in MD)' . PHP_EOL;
+                return;
+            }
         }
 
         // Replace any image URL's which do not exist in the img folder for this language
@@ -225,15 +273,43 @@ class ManualGenerator
         }, $pageContent);
 
         $pageContent = preg_replace_callback('#(<h2>)(.*)(</h2>)#i', function ($m) {
-            $id = strtolower(str_replace(' ', '_',$m[2]));
+            $id = strtolower(str_replace(' ', '_', $m[2]));
             return '<h2 id="' . $id . '">' . $m[2] . ' <a href="#' . $id . '" class="header-link"><span class="glyphicon glyphicon-link"></span></a></h2>';
         }, $pageContent);
+
+        // Generate On-Page Navigation (H1, H2)
+        $onPageNav = '<ul class="nav nav-pills nav-stacked">';
+
+        $onPageTitle = 'On this page';
+        if ($lang == 'es')
+            $onPageTitle = 'En esta página';
+        else if ($lang == 'ca')
+            $onPageTitle = 'En aquesta pàgina';
+
+        $onPageNav .= '<li class="sidebar-brand">' . $onPageTitle . '</li>';
+
+        preg_match_all('#<h([1-3]) id="(.*?)">(.*?)( <a.*)?</h\1>#i', $pageContent, $matches, PREG_SET_ORDER);
+
+        foreach ($matches as $match) {
+            $level = $match[1];
+            $id = $match[2];
+            $text = strip_tags($match[3]);
+
+            // Indent based on level if desired, or flat list
+            // For now, flat list as per preview_generator style
+            if ($level >= 1) {
+                $onPageNav .= '<li><a href="#' . $id . '">' . $text . '</a></li>';
+            }
+        }
+        $onPageNav .= '</ul>';
 
         // Header and Footer
         $string = $this->template;
 
         $string = str_replace('[[TOCNAME]]', $toc, $string);
         $string = str_replace('[[PAGE]]', $pageContent, $string);
+        $string = str_replace('[[ONPAGENAV]]', $onPageNav, $string);
+        $string = str_replace('[[CURRENT_FILENAME]]', $file . '.html', $string);
 
         // Navigation
         //  we want to put the appropriate TOC at the right place inside the navbar
@@ -253,7 +329,9 @@ class ManualGenerator
 
                 // highlight the sub link in this toc
                 $document = new DOMDocument();
-                $document->loadHTML($tocString);
+                // Hack to force UTF-8: convert to HTML entities (ignoring tags) so DOMDocument doesn't mangle UTF-8
+                // or prepend meta charset. simple mb_convert_encoding is robust.
+                $document->loadHTML(mb_convert_encoding($tocString, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
                 foreach ($document->getElementsByTagName('a') as $a) {
                     /** @var DOMElement $a */
@@ -269,7 +347,7 @@ class ManualGenerator
                 $tocString = $document->saveHTML();
             }
 
-            $navString .= '<li><a href="' . $nav['href'] . '" data-toc-name="' . $navToc . '">' . $nav['title'] . '</a></li>';
+            $navString .= '<li><a href="' . $nav['href'] . '" data-toc-name="' . $navToc . '">' . htmlspecialchars($nav['title'], ENT_QUOTES, 'UTF-8') . '</a></li>';
             $navString .= $tocString;
         }
 
@@ -303,8 +381,7 @@ class ManualGenerator
             $string = preg_replace('/({(nonwhite)\b[^}]*}).*?({\/\2})/s', '', $string);
             $string = str_replace('{white}', '', $string);
             $string = str_replace('{/white}', '', $string);
-        }
-        else {
+        } else {
             $string = preg_replace('/({(white)\b[^}]*}).*?({\/\2})/s', '', $string);
             $string = str_replace('{nonwhite}', '', $string);
             $string = str_replace('{/nonwhite}', '', $string);
@@ -314,25 +391,37 @@ class ManualGenerator
         $isSvg = (is_dir($this->outputPath . 'img/svg'));
 
         // Replace highlight blocks with div's and styles
-        $string = preg_replace_callback('/({(tip)\b[^}]*}).*?({\/\2})/s', function($matches) use ($isSvg) {
+        $string = preg_replace_callback('/({(tip)\b[^}]*}).*?({\/\2})/s', function ($matches) use ($isSvg) {
             $match = $matches[0];
             $match = str_replace('{tip}', '', $match);
             $match = str_replace('{/tip}', '', $match);
             return '<blockquote class="tip">' . (($isSvg) ? '<img class="blockquote-image" src="../img/svg/Home/icon_home_engage_lightblue.svg" />' : '') . self::getHtml($match) . '</blockquote>';
         }, $string);
 
-        $string = preg_replace_callback('/({(cloud)\b[^}]*}).*?({\/\2})/s', function($matches) use ($isSvg) {
+        $string = preg_replace_callback('/({(cloud)\b[^}]*}).*?({\/\2})/s', function ($matches) use ($isSvg) {
             $match = $matches[0];
             $match = str_replace('{cloud}', '', $match);
             $match = str_replace('{/cloud}', '', $match);
             return '<blockquote class="cloud">' . (($isSvg) ? '<img class="blockquote-image" src="../img/svg/Home/icon_home_cloud_blue.svg" />' : '') . self::getHtml($match) . '</blockquote>';
         }, $string);
 
-        $string = preg_replace_callback('/({(noncloud)\b[^}]*}).*?({\/\2})/s', function($matches) use ($isSvg) {
+        $string = preg_replace_callback('/({(noncloud)\b[^}]*}).*?({\/\2})/s', function ($matches) use ($isSvg) {
             $match = $matches[0];
             $match = str_replace('{noncloud}', '', $match);
             $match = str_replace('{/noncloud}', '', $match);
             return '<blockquote class="noncloud">' . (($isSvg) ? '<img class="blockquote-image" src="../img/svg/Home/icon_home_cms_orange.svg" />' : '') . self::getHtml($match) . '</blockquote>';
+        }, $string);
+
+        // Handle FAQs: ***Question*** \n\n Answer
+        $string = preg_replace_callback('/\*\*\*(.*?)\*\*\*\s*\n(.*?)(?=\n\*\*\*|\n#|$)/s', function ($matches) {
+            $question = trim($matches[1]);
+            $answer = str_replace("\n", '<br>', trim($matches[2]));
+            return '<details class="faq-accordion"><summary>' . $question . '</summary><div class="faq-content">' . $answer . '</div></details>';
+        }, $string);
+
+        // Handle Video Tags: {video}ID|image.png{/video}
+        $string = preg_replace_callback('/{video}(.*?)\|(.*?){\/video}/', function ($matches) {
+            return '<div class="video-container"><a href="https://www.youtube.com/watch?v=' . $matches[1] . '" target="_blank"><img src="../img/' . $matches[2] . '" class="img-responsive img-thumbnail"><br>Watch Video</a></div>';
         }, $string);
 
         // Strip out other not supported tags.
@@ -396,12 +485,87 @@ class ManualGenerator
             }
 
             return rmdir($path);
-        }
-        else if (is_file($path) === true) {
+        } else if (is_file($path) === true) {
             return unlink($path);
         }
 
         return false;
+    }
+
+
+    /**
+     * Build map of Child -> Parent based on nav_bar.json structure
+     */
+    private function buildParentMap()
+    {
+        $navBarFile = $this->sourcePath . 'source/es/toc/nav_bar.json';
+        if (!file_exists($navBarFile))
+            return;
+
+        $navBar = json_decode(file_get_contents($navBarFile), true);
+        if (!is_array($navBar))
+            return;
+
+        foreach ($navBar as $item) {
+            // Identifier for the parent module (the link)
+            $parentFile = '';
+            if (isset($item['href']) && strpos($item['href'], '.html') !== false) {
+                $parentFile = str_replace('.html', '.md', $item['href']);
+            }
+
+            if (!$parentFile)
+                continue;
+
+            // Process TOCs belonging to this parent
+            if (isset($item['containsToc'])) {
+                foreach ($item['containsToc'] as $tocName) {
+                    $tocFile = $this->sourcePath . 'source/es/toc/' . $tocName . '.md';
+                    if (file_exists($tocFile)) {
+                        $tocContent = file_get_contents($tocFile);
+                        preg_match_all('/\((.*?\.html)\)/', $tocContent, $matches);
+                        if (isset($matches[1])) {
+                            foreach ($matches[1] as $link) {
+                                $childFile = str_replace('.html', '.md', $link);
+                                // Map child to parent
+                                if ($childFile !== $parentFile) {
+                                    $this->parentMap[$childFile] = $parentFile;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Check if a file should be hidden based on its parent's visibility
+     */
+    private function checkInheritedVisibility($filename)
+    {
+        // Recursively check parents (though usually just 1 level depth in this manual)
+        $current = $filename;
+        while (isset($this->parentMap[$current])) {
+            $parent = $this->parentMap[$current];
+            $parentVisibility = $this->visibilityConfig[$parent] ?? 'public';
+
+            // If Parent is DRAFT -> Block
+            if ($parentVisibility === 'draft') {
+                return 'blocked';
+            }
+
+            // If Build is PUBLIC and Parent is FULL -> Block
+            if ($this->buildMode === 'public' && $parentVisibility === 'full') {
+                return 'blocked';
+            }
+
+            // Move up
+            $current = $parent;
+            // Break loop if circular (safety)
+            if ($current === $filename)
+                break;
+        }
+        return 'allowed';
     }
 
     public static function getHtml($markdown): string

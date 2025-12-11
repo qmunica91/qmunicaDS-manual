@@ -297,4 +297,35 @@ def build():
     print(f"Build Complete.")
 
 if __name__ == "__main__":
+    import sys
+    
+    # Check if --serve is passed
+    serve_mode = "--serve" in sys.argv
+    
     build()
+    
+    if serve_mode:
+        import http.server
+        import socketserver
+        
+        PORT = 8000
+        # Serve from the output directory
+        web_dir = os.path.join(os.getcwd(), "output")
+        os.chdir(web_dir)
+        
+        Handler = http.server.SimpleHTTPRequestHandler
+        
+        # Allow reusing address to avoid "Address already in use" errors on quick restarts
+        socketserver.TCPServer.allow_reuse_address = True
+        
+        with socketserver.TCPServer(("", PORT), Handler) as httpd:
+            print(f"\nServing at: http://localhost:{PORT}/es/index.html")
+            print("Press Ctrl+C to stop the server.")
+            try:
+                httpd.serve_forever()
+            except KeyboardInterrupt:
+                print("\nServer stopped.")
+    else:
+        # Just print the file link if not serving
+        index_path = os.path.abspath(os.path.join("output", "es", "index.html"))
+        print(f"\nBuild complete. You can view the file at:\nfile://{index_path}")
