@@ -443,38 +443,228 @@
         <button class="ai-close-btn" onclick="toggleSidebar()">✕</button>
     </div>
 
-    <!-- N8n Hosted Chat Iframe -->
-    <div style="flex: 1; width: 100%; height: 100%; overflow: hidden; background: white;">
-        <iframe src="https://informes.qmunica.com/webhook/ed1de65e-3d53-43f8-a330-37f0bd028b35/chat"
-            style="width: 100%; height: 100%; border: none;" allow="microphone">
-        </iframe>
+    <div class="ai-messages-container" id="ai-messages">
+        <!-- Welcome Message will be injected by JS if history is empty -->
     </div>
 
+    <div class="ai-input-area">
+        <div class="ai-input-wrapper">
+            <textarea id="ai-input" placeholder="Pregunta sobre playlists, widgets, etc..." rows="1"
+                onkeypress="handleInputKey(event)"></textarea>
+        </div>
+        <button class="ai-send-btn" id="ai-send-btn" onclick="sendAiMessage()">
+            ➤
+        </button>
+    </div>
 </div>
 
 <script>
+    // CONFIGURATION
+    const AI_WEBHOOK_URL = 'https://informes.qmunica.com/webhook/ed1de65e-3d53-43f8-a330-37f0bd028b35/chat';
+    const STATE_KEY = 'qmunica_sidebar_state';
+    const HISTORY_KEY = 'qmunica_chat_history';
+    const SESSION_KEY = 'qmunica_chat_session';
+
     let sidebarOpen = false;
 
-    function toggleSidebar() {
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+        loadState();
+        loadHistory();
+    });
+
+    function loadState() {
+        const savedState = localStorage.getItem(STATE_KEY);
+        sidebarOpen = savedState === 'open';
+
         const sidebar = document.getElementById('qmunica-ai-sidebar');
         const toggleBtn = document.getElementById('qmunica-ai-toggle');
         const tooltip = document.querySelector('.ai-cta-tooltip');
-
-        sidebarOpen = !sidebarOpen;
 
         if (sidebarOpen) {
             sidebar.classList.add('open');
             toggleBtn.classList.add('sidebar-active');
             toggleBtn.innerHTML = '✕';
             if (tooltip) tooltip.style.display = 'none';
+            document.body.classList.add('chat-open');
+        }
+    }
 
-            // Auto-focus iframe if possible (often blocked by browser security, but worth a try)
+    function toggleSidebar() {
+        sidebarOpen = !sidebarOpen;
+        localStorage.setItem(STATE_KEY, sidebarOpen ? 'open' : 'closed');
+
+        const sidebar = document.getElementById('qmunica-ai-sidebar');
+        const toggleBtn = document.getElementById('qmunica-ai-toggle');
+        const tooltip = document.querySelector('.ai-cta-tooltip');
+
+        if (sidebarOpen) {
+            sidebar.classList.add('open');
+            toggleBtn.classList.add('sidebar-active');
+            toggleBtn.innerHTML = '✕';
+            if (tooltip) tooltip.style.display = 'none';
+            document.body.classList.add('chat-open');
         } else {
             sidebar.classList.remove('open');
             toggleBtn.classList.remove('sidebar-active');
             toggleBtn.innerHTML = '✨';
             if (tooltip) tooltip.style.display = 'block';
+            document.body.classList.remove('chat-open');
         }
+    }
+
+    function handleInputKey(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendAiMessage();
+        }
+    }
+
+    async function sendAiMessage() {
+        const inputField = document.getElementById('ai-input');
+        const message = inputField.value.trim();
+        const sendBtn = document.getElementById('ai-send-btn');
+        const messagesContainer = document.getElementById('ai-messages');
+
+        if (!message) return;
+
+        // UI Updates
+        addMessageToUI(message, 'user');
+        saveMessageToHistory(message, 'user');
+
+        inputField.value = '';
+        sendBtn.disabled = true;
+
+        // Show typing
+        const typing = createTypingIndicator();
+        messagesContainer.appendChild(typing);
+        scrollToBottom();
+
+        try {
+            // Generate or retrieve session ID
+            let sessionId = localStorage.getItem(SESSION_KEY);
+            if (!sessionId) {
+                sessionId = 'sess_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem(SESSION_KEY, sessionId);
+            }
+
+            console.log("Enviando mensaje a:", AI_WEBHOOK_URL);
+
+            // API Call
+            const response = await fetch(AI_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chatInput: message,
+                    sessionId: sessionId
+                })
+            });
+
+            // Check for HTML response (common mistake with N8n Hosted Chat)
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("text/html")) {
+                console.error("Recibido HTML en lugar de JSON. N8n está en modo Hosted Chat o devolviendo error 404/500.");
+                throw new Error("N8n devolvió HTML (Modo Chat) en lugar de JSON (Modo API).");
+            }
+
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Respuesta recibida:", data);
+
+            // Extract text
+            let botText = "Lo siento, no he leido nada.";
+            const payload = Array.isArray(data) ? data[0] : data;
+
+            if (typeof payload === 'string') botText = payload;
+            else if (payload.output) botText = payload.output;
+            else if (payload.message) botText = payload.message;
+            else if (payload.text) botText = payload.text;
+            else if (payload.content) botText = payload.content;
+
+            // Success
+            if (typing.parentNode) typing.parentNode.removeChild(typing);
+            addMessageToUI(botText, 'bot');
+            saveMessageToHistory(botText, 'bot');
+
+        } catch (error) {
+            console.error(error);
+            if (typing.parentNode) typing.parentNode.removeChild(typing);
+
+            let errorMsg = "Lo siento, hubo un error de conexión.";
+            if (error.message.includes("HTML")) errorMsg = "⚠️ Error: N8n configurado como 'Chat' en vez de 'Webhook'.";
+            if (error.message.includes("Failed to fetch")) errorMsg = "⚠️ Error CORS: Configura 'Allowed Origins: *' en el nodo Webhook de N8n.";
+
+            addMessageToUI(errorMsg, 'bot');
+            saveMessageToHistory(errorMsg, 'bot'); // Save error too so user sees it
+        } finally {
+            sendBtn.disabled = false;
+            inputField.focus();
+        }
+    }
+
+    function addMessageToUI(text, type) {
+        const container = document.getElementById('ai-messages');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `ai-message ${type}`;
+
+        if (!text) text = "...";
+
+        let formattedText = text
+            .replace(/\n/g, '<br>')
+            .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+
+        msgDiv.innerHTML = formattedText;
+        container.appendChild(msgDiv);
+        scrollToBottom();
+    }
+
+    // --- History Management ---
+
+    function saveMessageToHistory(text, type) {
+        let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+        history.push({ text, type, timestamp: new Date().getTime() });
+        // Optional: limit history size (e.g., last 50 messages)
+        if (history.length > 50) history = history.slice(history.length - 50);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    }
+
+    function loadHistory() {
+        const container = document.getElementById('ai-messages');
+        let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+
+        container.innerHTML = ''; // Clear existing
+
+        if (history.length === 0) {
+            // Default Welcome Message if no history
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.className = 'ai-message bot';
+            welcomeDiv.innerHTML = '<div class="ai-avatar">🤖</div>Hola, soy tu asistente experto en Qmunica DS. <br><br>Puedo ayudarte a buscar información en el manual o adaptar ejemplos de código.<br><strong>¿Qué necesitas saber hoy?</strong>';
+            container.appendChild(welcomeDiv);
+        } else {
+            // Load saved messages
+            history.forEach(msg => {
+                addMessageToUI(msg.text, msg.type);
+            });
+            // Restore scroll position? usually bottom is best
+            setTimeout(scrollToBottom, 100);
+        }
+    }
+
+    // Helper for typing
+    function createTypingIndicator() {
+        const div = document.createElement('div');
+        div.className = 'typing-indicator';
+        div.style.display = 'flex';
+        div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+        return div;
+    }
+
+    function scrollToBottom() {
+        const container = document.getElementById('ai-messages');
+        container.scrollTop = container.scrollHeight;
     }
 </script>
 </body>
