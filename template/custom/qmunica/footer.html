@@ -609,15 +609,92 @@
 
         if (!text) text = "...";
 
+        // Improved Markdown Parsing
         let formattedText = text
-            .replace(/\n/g, '<br>')
-            .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+            // Escape HTML to prevent injection before formatting
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            // Code blocks with language support: ```html ... ```
+            .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
+            // Inline code: `...`
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            // Bold: **...**
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            // Line breaks
+            .replace(/\n/g, '<br>');
 
         msgDiv.innerHTML = formattedText;
         container.appendChild(msgDiv);
         scrollToBottom();
     }
+</script>
 
+<style>
+    /* ... existing styles ... */
+
+    /* Chat Message Styling Enhancements */
+    .ai-message {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Code Block Styling */
+    .ai-message pre {
+        background: #f4f4f4;
+        /* Light background for contrast */
+        color: #333;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+        /* Horizontal scroll for long lines */
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 12px;
+        text-align: left;
+        /* Ensure code aligns left */
+    }
+
+    .ai-message code {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-family: monospace;
+        color: #d63384;
+        /* Pinkish color for inline code */
+    }
+
+    .ai-message pre code {
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        border: none;
+        white-space: pre;
+        /* Maintain formatting in blocks */
+    }
+
+    /* Bot Message specific adjustments */
+    .ai-message.bot {
+        background-color: #f0f0f0;
+        color: #333;
+        border: 1px solid #e0e0e0;
+    }
+
+    /* User Message specific adjustments */
+    .ai-message.user {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .ai-message.user pre {
+        background: rgba(0, 0, 0, 0.2);
+        color: white;
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+</style>
+
+<script>
     // --- History Management ---
 
     function saveMessageToHistory(text, type) {
