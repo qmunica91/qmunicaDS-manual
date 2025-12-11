@@ -548,8 +548,6 @@
                 localStorage.setItem(SESSION_KEY, sessionId);
             }
 
-            console.log("Enviando mensaje a:", AI_WEBHOOK_URL);
-
             // API Call
             const response = await fetch(AI_WEBHOOK_URL, {
                 method: 'POST',
@@ -572,7 +570,6 @@
             }
 
             const data = await response.json();
-            console.log("Respuesta recibida:", data);
 
             // Extract text
             let botText = "Lo siento, no he leido nada.";
