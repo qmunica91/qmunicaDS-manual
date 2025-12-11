@@ -3,8 +3,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: #333;
   line-height: 1.6;
-  background-color: #f8f9fa;
-  padding-top: 80px;
+  background-color: #f3f5f7;
+  /* Modern, clean grey-blue tint */
+  padding-top: 100px;
   /* Space for fixed navbar */
 }
 
@@ -23,9 +24,11 @@ h6 {
 h1 {
   margin-top: 0;
   font-size: 2.5em;
-  border-bottom: 2px solid #cde2e6;
-  padding-bottom: 15px;
-  margin-bottom: 30px;
+  border-bottom: 1px solid #e1e4e8;
+  /* Softer border */
+  padding-bottom: 20px;
+  margin-bottom: 35px;
+  color: #1f2937;
 }
 
 h2 {
@@ -64,7 +67,10 @@ a:hover {
 nav#top-nav {
   background-color: #273759 !important;
   border: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  /* Modern diffused shadow */
+  backdrop-filter: blur(10px);
+  /* Glassmorphism hint */
 }
 
 .navbar-brand {
@@ -75,15 +81,49 @@ nav#top-nav {
 }
 
 ul.navbar-nav a {
-  color: rgba(255, 255, 255, 0.8) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 ul.navbar-nav a:hover,
 ul.navbar-nav li.active a {
   color: #fff !important;
-  background-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
   border-bottom: 3px solid #cde2e6;
+}
+
+/* AI Button Style - Modern & Premium */
+.nav-ai-btn {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  /* Indigo to Violet */
+  color: #fff !important;
+  padding: 8px 18px !important;
+  border-radius: 9999px;
+  /* Pill shape */
+  font-weight: 600 !important;
+  font-size: 0.95em;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  margin-top: 8px;
+  /* Align vertically */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none !important;
+}
+
+.nav-ai-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  /* Override default underline */
+}
+
+.nav-ai-btn .ai-sparkle {
+  font-size: 1.1em;
 }
 
 /* Fix for Dropdown Links Visibility */
@@ -175,22 +215,30 @@ input[type=range].font-range-slider:focus::-webkit-slider-runnable-track {
   background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Search Input */
+/* Search Input - Adjusted for Light Sidebar */
 #searchInput {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: #fff;
-  transition: all 0.3s;
+  background-color: #ffffff;
+  border: 1px solid #e1e4e8;
+  color: #1f2937;
+  /* Dark text */
+  transition: all 0.3s ease;
+  height: 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
 #searchInput:focus {
-  background-color: rgba(255, 255, 255, 0.2);
-  width: 200px;
-  /* Expand on focus */
+  background-color: #ffffff;
+  width: 100%;
+  /* Ensure it uses available space, fixed width might break layout */
+  border-color: #4f46e5;
+  /* Indigo focus */
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  outline: none;
 }
 
 #searchInput::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: #9ca3af;
+  /* Gray-400 */
 }
 
 /* Sidebar Navigation */
@@ -307,16 +355,21 @@ details.faq-accordion .faq-content {
 
 ul#side-nav {
   background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  /* Softer shadow */
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 ul#side-nav>li>a {
-  font-weight: 600;
-  color: #273759;
-  padding: 8px 15px;
-  border-radius: 4px;
+  font-weight: 500;
+  /* Lighter weight matching modern trends */
+  color: #4b5563;
+  /* Gray-600 */
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 4px;
 }
 
 ul#side-nav>li.active>a,
@@ -364,12 +417,16 @@ span.you-are-here-arrow {
   min-height: 800px;
 }
 
-.col-md-9[role="main"] {
+/* Updated selector to match header.html (.col-md-7) and generic [role="main"] */
+[role="main"] {
   background: #fff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 50px;
+  border-radius: 16px;
+  /* Larger modern radius */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  /* Clean, diffused shadow */
   margin-bottom: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 /* Images & Tables */
@@ -448,4 +505,42 @@ blockquote.noncloud {
 .ss_back_to_top:hover {
   transform: translateY(-3px);
   background: #344870;
+}
+
+/* Search Button Styling */
+.sidebar-search-container .input-group-btn .btn {
+  height: 40px;
+  background-color: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-left: none;
+  color: #6b7280;
+  /* Gray-500 */
+  transition: all 0.3s;
+}
+
+.sidebar-search-container .input-group-btn .btn:hover {
+  background-color: #f9fafb;
+  color: #4f46e5;
+  /* Indigo Accent */
+  border-color: #d1d5db;
+}
+
+/* Sparkle Animation */
+@keyframes sparkle-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.ai-sparkle {
+  display: inline-block;
+  animation: sparkle-spin 3s infinite linear;
 }

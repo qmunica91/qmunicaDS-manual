@@ -635,34 +635,47 @@
 
     /* Chat Message Styling Enhancements */
     .ai-message {
-        font-size: 14px;
-        line-height: 1.5;
+        font-size: 15px;
+        /* Slightly larger text */
+        line-height: 1.6;
+        animation: fadeIn 0.3s ease-out both;
     }
 
-    /* Code Block Styling */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Code Block Styling - Tech/Dark Mode */
     .ai-message pre {
-        background: #f4f4f4;
-        /* Light background for contrast */
-        color: #333;
-        padding: 10px;
-        border-radius: 5px;
+        background: #1e1e1e;
+        /* VS Code style dark */
+        color: #d4d4d4;
+        padding: 12px;
+        border-radius: 8px;
         overflow-x: auto;
-        /* Horizontal scroll for long lines */
-        margin: 10px 0;
-        border: 1px solid #ddd;
+        margin: 12px 0;
+        border: 1px solid #333;
         font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        font-size: 12px;
-        text-align: left;
-        /* Ensure code aligns left */
+        font-size: 13px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .ai-message code {
-        background: rgba(0, 0, 0, 0.05);
-        padding: 2px 4px;
-        border-radius: 3px;
+        background: rgba(0, 0, 0, 0.06);
+        padding: 2px 5px;
+        border-radius: 4px;
         font-family: monospace;
-        color: #d63384;
-        /* Pinkish color for inline code */
+        color: #e83e8c;
+        /* Vivid pink */
+        font-size: 0.9em;
     }
 
     .ai-message pre code {
@@ -671,26 +684,32 @@
         color: inherit;
         border: none;
         white-space: pre;
-        /* Maintain formatting in blocks */
     }
 
-    /* Bot Message specific adjustments */
+    /* Bot Message specific adjustments - Clean Card */
     .ai-message.bot {
-        background-color: #f0f0f0;
-        color: #333;
-        border: 1px solid #e0e0e0;
+        background-color: #ffffff;
+        color: #2c3e50;
+        border: 1px solid #eaeaea;
+        /* Very subtle border */
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        border-bottom-left-radius: 2px;
+        /* Chat bubble effect */
     }
 
-    /* User Message specific adjustments */
+    /* User Message specific adjustments - Gradient Brand */
     .ai-message.user {
-        background-color: #007bff;
+        background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
         color: white;
+        box-shadow: 0 2px 12px rgba(0, 123, 255, 0.2);
+        border-bottom-right-radius: 2px;
     }
 
     .ai-message.user pre {
-        background: rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.15);
+        /* Glassy for user code */
         color: white;
-        border-color: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 </style>
 

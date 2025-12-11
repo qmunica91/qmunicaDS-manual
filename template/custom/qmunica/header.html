@@ -39,31 +39,12 @@
 
             <div class="collapse navbar-collapse" id="ss-navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Search -->
+                    <!-- Qmunica AI Button -->
                     <li>
-                        <form class="navbar-form navbar-left" role="search">
-                            <div class="form-group">
-                                <input type="text" id="searchInput" class="form-control" placeholder="Buscar...">
-                            </div>
-                        </form>
-                    </li>
-                    <!-- Font Controls -->
-                    <li class="dropdown font-settings-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false" title="Tamaño de letra">
-                            <span class="glyphicon glyphicon-font" aria-hidden="true"></span>
+                        <a href="#" onclick="toggleSidebar(); return false;" class="nav-ai-btn"
+                            title="Asistente Inteligente">
+                            <span class="ai-sparkle">✨</span> Asistente IA
                         </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="font-slider-container">
-                                    <button class="btn btn-default btn-xs font-decrease" id="fontDec"><span
-                                            class="glyphicon glyphicon-minus"></span></button>
-                                    <span class="small" style="margin:0 5px;">A</span>
-                                    <button class="btn btn-default btn-xs font-increase" id="fontInc"><span
-                                            class="glyphicon glyphicon-plus"></span></button>
-                                </div>
-                            </li>
-                        </ul>
                     </li>
                     <!-- Language Selector -->
                     <li class="dropdown">
@@ -103,9 +84,33 @@
     <div class="ss_body container">
         <div class="row">
             <div class="col-md-3">
+                <!-- Sidebar Search -->
+                <div class="sidebar-search-container" style="margin-bottom: 20px;">
+                    <form role="search">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Buscar manual..."
+                                style="border-radius: 20px 0 0 20px;">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"
+                                    style="border-radius: 0 20px 20px 0;">🔍</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+
                 <ul id="side-nav" class="nav nav-pills nav-stacked ss_sidebar">
                     [[NAVBAR]]
                 </ul>
+
+                <!-- Sidebar Font Controls -->
+                <div class="sidebar-font-controls"
+                    style="margin-top: 20px; padding: 10px; border-top: 1px solid #eee; text-align: center;">
+                    <span class="small text-muted" style="margin-right: 10px;">Tamaño texto:</span>
+                    <button class="btn btn-default btn-sm font-decrease" id="fontDec"><span
+                            class="glyphicon glyphicon-minus"></span></button>
+                    <button class="btn btn-default btn-sm font-increase" id="fontInc"><span
+                            class="glyphicon glyphicon-plus"></span></button>
+                </div>
             </div>
             <div class="col-md-7" role="main">
                 [[PAGE]]
